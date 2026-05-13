@@ -1,0 +1,14 @@
+name: ddpm
+channels:
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.11
+  - pytorch
+  - torchvision
+  - numpy
+  - matplotlib
+  - tqdm
+  - pip
+  - pip:
+    - torch-lr-finder
