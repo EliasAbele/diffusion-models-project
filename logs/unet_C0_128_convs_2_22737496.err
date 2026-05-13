@@ -1,0 +1,60 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnellius-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnellius-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+  0%|          | 0/100 [00:00<?, ?it/s]  1%|          | 1/100 [00:00<01:00,  1.65it/s]  8%|▊         | 8/100 [00:00<00:06, 14.41it/s] 15%|█▌        | 15/100 [00:00<00:03, 25.69it/s] 22%|██▏       | 22/100 [00:00<00:02, 35.18it/s] 29%|██▉       | 29/100 [00:01<00:01, 42.83it/s] 36%|███▌      | 36/100 [00:01<00:01, 48.77it/s] 43%|████▎     | 43/100 [00:01<00:01, 53.33it/s] 50%|█████     | 50/100 [00:01<00:00, 56.68it/s] 57%|█████▋    | 57/100 [00:01<00:00, 59.10it/s] 64%|██████▍   | 64/100 [00:01<00:00, 60.85it/s] 67%|██████▋   | 67/100 [00:01<00:00, 40.87it/s]
+Epochs:   0%|          | 0/300 [00:00<?, ?it/s]
+train:   0%|          | 0/1875 [00:00<?, ?it/s][A
+train:   0%|          | 1/1875 [00:00<11:38,  2.68it/s][A
+train:   0%|          | 8/1875 [00:00<01:28, 21.02it/s][A
+train:   1%|          | 15/1875 [00:00<00:53, 34.49it/s][A
+train:   1%|          | 22/1875 [00:00<00:41, 44.24it/s][A
+train:   2%|▏         | 29/1875 [00:00<00:36, 51.24it/s][A
+train:   2%|▏         | 36/1875 [00:00<00:32, 56.25it/s][A
+train:   2%|▏         | 43/1875 [00:00<00:30, 59.78it/s][A
+train:   3%|▎         | 50/1875 [00:01<00:29, 62.28it/s][A
+train:   3%|▎         | 57/1875 [00:01<00:28, 64.02it/s][A
+train:   3%|▎         | 64/1875 [00:01<00:28, 64.59it/s][A
+train:   4%|▍         | 71/1875 [00:01<00:27, 65.64it/s][A
+train:   4%|▍         | 78/1875 [00:01<00:27, 66.23it/s][A
+train:   5%|▍         | 85/1875 [00:01<00:27, 66.27it/s][A
+train:   5%|▍         | 92/1875 [00:01<00:26, 66.33it/s][A
+train:   5%|▌         | 99/1875 [00:01<00:26, 66.79it/s][A
+train:   6%|▌         | 106/1875 [00:01<00:26, 67.15it/s][A
+train:   6%|▌         | 113/1875 [00:02<00:26, 67.43it/s][A
+train:   6%|▋         | 120/1875 [00:02<00:25, 67.63it/s][A
+train:   7%|▋         | 127/1875 [00:02<00:25, 67.79it/s][A
+train:   7%|▋         | 134/1875 [00:02<00:25, 67.90it/s][A
+train:   8%|▊         | 141/1875 [00:02<00:25, 67.99it/s][A
+train:   8%|▊         | 148/1875 [00:02<00:25, 67.86it/s][A
+train:   8%|▊         | 155/1875 [00:02<00:25, 67.64it/s][A
+train:   9%|▊         | 162/1875 [00:02<00:25, 67.79it/s][A
+train:   9%|▉         | 169/1875 [00:02<00:25, 67.91it/s][A
+train:   9%|▉         | 176/1875 [00:02<00:25, 67.61it/s][A
+train:  10%|▉         | 183/1875 [00:03<00:25, 67.06it/s][A

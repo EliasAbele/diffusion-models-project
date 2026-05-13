@@ -1,0 +1,12 @@
+Job ID: 22737496
+Node: gcn40
+Start: Thu May 14 01:01:26 CEST 2026
+Device: cuda
+Config: {'model_path': '/home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/init.pt', 'train_dataset_path': '/home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/train_dataset.pt', 'test_dataset_path': '/home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/test_dataset.pt', 'epochs': 300, 'batch_size': 32, 'weight_decay': 1e-06, 'lr': None, 'save_path': '/home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/trained.pkl', 'early_stopping': 15}
+Parameters: 7,524,097
+Train samples: 60000, Test samples: 10000
+Stopping early, the loss has diverged
+Learning rate search finished. See the graph with {finder_name}.plot()
+LR suggestion: steepest gradient
+Suggested LR: 7.05E-07
+LR finder: 7.05e-07 → using 3.53e-07

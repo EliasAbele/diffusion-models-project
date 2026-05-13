@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from tqdm.notebook import tqdm
+from tqdm.auto import tqdm
 from torch_lr_finder import LRFinder
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

@@ -44,6 +44,14 @@ class UNet(nn.Module):
         self.upsample = nn.Upsample(scale_factor=pool_size)
         self.activation_fn = F.relu
 
+        self.config = {
+            'channels':        channels,
+            'convs_per_level': convs_per_level,
+            'kernel_size':     kernel_size,
+            'pool_size':       pool_size,
+            'padding':         padding,
+        }
+
     def forward(self, x):
         skips = []
         last_encoder = len(self.encoder_convs) - 1
