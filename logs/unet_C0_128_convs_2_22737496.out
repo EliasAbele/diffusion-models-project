@@ -10,3 +10,17 @@ Learning rate search finished. See the graph with {finder_name}.plot()
 LR suggestion: steepest gradient
 Suggested LR: 7.05E-07
 LR finder: 7.05e-07 → using 3.53e-07
+Epoch 0 | train loss: 0.0249 | test loss: 0.0251
+Epoch 1 | train loss: 0.0249 | test loss: 0.0242
+Epoch 2 | train loss: 0.0249 | test loss: 0.0250
+Epoch 3 | train loss: 0.0250 | test loss: 0.0247
+Epoch 4 | train loss: 0.0249 | test loss: 0.0244
+Epoch 5 | train loss: 0.0249 | test loss: 0.0251
+Epoch 6 | train loss: 0.0249 | test loss: 0.0248
+Epoch 7 | train loss: 0.0251 | test loss: 0.0247
+Epoch 8 | train loss: 0.0250 | test loss: 0.0249
+Epoch 9 | train loss: 0.0249 | test loss: 0.0247
+Epoch 10 | train loss: 0.0250 | test loss: 0.0252
+Epoch 11 | train loss: 0.0249 | test loss: 0.0247
+Epoch 12 | train loss: 0.0249 | test loss: 0.0251
+Epoch 13 | train loss: 0.0250 | test loss: 0.0251
