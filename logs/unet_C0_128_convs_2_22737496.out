@@ -24,3 +24,11 @@ Epoch 10 | train loss: 0.0250 | test loss: 0.0252
 Epoch 11 | train loss: 0.0249 | test loss: 0.0247
 Epoch 12 | train loss: 0.0249 | test loss: 0.0251
 Epoch 13 | train loss: 0.0250 | test loss: 0.0251
+Epoch 14 | train loss: 0.0250 | test loss: 0.0253
+Epoch 15 | train loss: 0.0249 | test loss: 0.0246
+Epoch 16 | train loss: 0.0252 | test loss: 0.0249
+Early stopping at epoch 16
+Best test loss: 0.0242
+Trained model saved to: /home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/trained.pkl
+Cleaned up init files.
+Done: Thu May 14 01:10:23 CEST 2026
