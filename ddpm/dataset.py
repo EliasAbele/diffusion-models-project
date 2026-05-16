@@ -5,7 +5,7 @@ from torchvision import datasets, transforms
 from .scheduler import NoiseScheduler
 
 
-class NoisyMNIST(torch.utils.data.Dataset):
+class NoisyDataset(torch.utils.data.Dataset):
     def __init__(self, dataset, scheduler: NoiseScheduler):
         self.dataset = dataset
         self.scheduler = scheduler
@@ -22,7 +22,8 @@ class NoisyMNIST(torch.utils.data.Dataset):
             t.to(scheduler_device)
         )
         return x_noisy.squeeze(0), noise.squeeze(0)
-
+    
+NoisyMNIST = NoisyDataset
 
 def load_mnist(transform=None):
     if transform is None:
@@ -36,8 +37,8 @@ def load_mnist(transform=None):
 
 
 def get_noisy_loaders(train_set, test_set, scheduler: NoiseScheduler, batch_size=32):
-    train_noisy = NoisyMNIST(train_set, scheduler)
-    test_noisy  = NoisyMNIST(test_set,  scheduler)
+    train_noisy = NoisyDataset(train_set, scheduler)
+    test_noisy  = NoisyDataset(test_set,  scheduler)
     train_loader = DataLoader(train_noisy, batch_size=batch_size, shuffle=True)
     test_loader  = DataLoader(test_noisy,  batch_size=batch_size, shuffle=False)
     return train_loader, test_loader
@@ -47,8 +48,8 @@ def zeros_only(dataset):
     return Subset(dataset, indices)
 
 def get_noisy_loaders_filtered(train_set, test_set, scheduler, filter_fn, batch_size=32):
-    train_noisy = NoisyMNIST(filter_fn(train_set), scheduler)
-    test_noisy  = NoisyMNIST(filter_fn(test_set),  scheduler)
+    train_noisy = NoisyDataset(filter_fn(train_set), scheduler)
+    test_noisy  = NoisyDataset(filter_fn(test_set),  scheduler)
     train_loader = DataLoader(train_noisy, batch_size=batch_size, shuffle=True)
     test_loader  = DataLoader(test_noisy,  batch_size=batch_size, shuffle=False)
     return train_loader, test_loader
