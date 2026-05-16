@@ -34,6 +34,8 @@ There is currently no good way to quantify how good our images are. One way woul
 i trained for a longer time the above model (can be moved in models/unet_C0_128_convs_2/trained.pkl), which should be the best model so far. i haven't tested yet how the quality of the images are that are being produced
 
 ### workflow: write a function that sends an image generation task to the gpu
+Status: kind of done. i have let cluade write everything, but i didn't test it yet. i also let claude refactor the cluster function so that it works for everybody and also without a conda env and i have let it write a setup.py function. I still have to take these changes into the example notebooks and the notebook i used (nobody else should've been using this so far, so that wouldn't make a difference), but i am waiting with that until lodi commits his changes.
+
 I (or rather Claude) has written a very nice python functions, which takes in a model and train and test loaders and sends them as a job to a node. very convenient, but we also want sth similar for generating images, because that isn't really feasible either without a gpu. additionaly, one can build a higher level function which takes the train_on_cluster function and the function for generating images and combines them, so we can send a training job, the training is being done, and at the end, with the trained model, we also get back a tensor with n_images generated images.
 
 ### write dataloaders for the galaxy data
