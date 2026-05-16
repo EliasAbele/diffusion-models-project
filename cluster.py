@@ -309,6 +309,26 @@ def train_and_generate_on_cluster(
     gen_cmd = _generate_cmd(job_name, n_images, stochasticity, T, ncol)
     return _submit(job_name, [train_cmd, gen_cmd], time, mem, cpus)
 
+def generate_on_cluster(
+    job_name,
+    n_images      = 8,
+    stochasticity = 1.0,
+    T             = 1000,
+    ncol          = 4,
+    time          = '01:00:00',
+    mem           = '16G',
+    cpus          = 4,
+):
+    """
+    Submit a generation-only job for an already trained model.
+    The job directory must already contain config.pt and trained.pkl,
+    i.e. training must have completed already.
+    Returns job_id.
+    """
+    _check_config()
+    cmd = _generate_cmd(job_name, n_images, stochasticity, T, ncol)
+    return _submit(job_name + '_gen', [cmd], time, mem, cpus)
+
 
 # ---------------------------------------------------------------------------
 # Monitoring
