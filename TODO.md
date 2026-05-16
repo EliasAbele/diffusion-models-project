@@ -17,6 +17,9 @@ currently, we cannot tell the model what to generate. we can also condition the 
 if we simply give in None as the conditioning, we should get the standard unconditioned training (i think (not sure) that is the standard way these architectures are build). I think this means that during the training, we also have to train the model on labeled and unlabeled images.
 the generate_image function will also have to be adapted, (we use prediction_conditioned-prediction_unconditioned as an update), see lilian weng blog article
 
+### Making the galaxy image generation work
+I (Elias) built now dataloaders for the galaxy data (ea5). what still has to be done is: use a VAE to compress the image into some latent space, change the UNet architecture to have more than one input channel, train, ...
+
 
 ## Medium Tasks
 
@@ -29,12 +32,11 @@ There is currently no good way to quantify how good our images are. One way woul
 
 ## (Smaller) Tasks
 
-### write dataloaders for the galaxy data
-there is a galaxy dataset, which we can load, train our model on that, and then see what images it creates. we can try that for the current state of our model, and for more complex models
-
 # DONE
 
 ### test unet_C0_128_convs_2
 
 ### workflow: write a function that sends an image generation task to the gpu
+
+### write dataloaders for the galaxy data
 
