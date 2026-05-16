@@ -104,7 +104,6 @@ def _check_config():
 
 
 def _activation_block():
-    """Return the shell lines that activate the right environment."""
     if ENV_TYPE == 'venv':
         lines = []
         if ON_SNELLIUS:
@@ -113,20 +112,13 @@ def _activation_block():
                 f'module load {PYTHON_MODULE}',
             ]
         lines.append(f'source {VENV_DIR}/bin/activate')
-        return '\n'.join(lines)
+        return '\n        '.join(lines)
 
     elif ENV_TYPE == 'conda':
-        return textwrap.dedent(f"""\
-            source ~/.bashrc
-            conda activate {CONDA_ENV}""")
+        return 'source ~/.bashrc\n        conda activate ' + CONDA_ENV
 
     elif ENV_TYPE == 'module':
-        return textwrap.dedent(f"""\
-            module load 2025
-            module load {PYTHON_MODULE}""")
-
-    else:
-        raise ValueError(f"Unknown ENV_TYPE: {ENV_TYPE!r}. Choose 'venv', 'conda', or 'module'.")
+        return f'module load 2025\n        module load {PYTHON_MODULE}'
 
 
 # ---------------------------------------------------------------------------
@@ -241,6 +233,8 @@ def _submit(job_name, commands, time, mem, cpus):
         ['sbatch', job_script_path],
         capture_output=True, text=True, check=True
     )
+    if result.returncode !=0:
+        raise RuntimeError(f"sbatch failed:\n{result.stderr}")
     job_id = result.stdout.strip().split()[-1]
     print(result.stdout.strip())
     print(f"Logs: {LOGS_DIR}/{job_name}_{job_id}.out")

@@ -1,0 +1,8 @@
+Job ID: 22797010
+Node: gcn66
+Start: Sat May 16 23:29:45 CEST 2026
+Device: cuda
+Loaded model with config: {'channels': [128, 256, 512], 'convs_per_level': 2, 'kernel_size': 3, 'pool_size': 2, 'padding': 1}
+Saved generated tensor to: /home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/generated.pt
+Saved preview image to: /home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/generated.png
+Done: Sat May 16 23:29:56 CEST 2026
