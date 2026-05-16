@@ -47,8 +47,8 @@ MODELS_DIR  = None
 ON_SNELLIUS = False
 
 # environment type: 'venv', 'conda', or 'module'
-ENV_TYPE    = 'venv'
-CONDA_ENV   = None   # only used if ENV_TYPE == 'conda'
+ENV_TYPE    = 'conda'
+CONDA_ENV   = 'diffusion'   # only used if ENV_TYPE == 'conda'
 
 # Snellius module to load before activating the environment
 PYTHON_MODULE = 'Python/3.11.3-GCCcore-12.3.0'
@@ -56,7 +56,7 @@ PYTHON_MODULE = 'Python/3.11.3-GCCcore-12.3.0'
 
 def _load_config():
     """Load config written by setup.py if it exists."""
-    global PROJECT_DIR, VENV_DIR, LOGS_DIR, MODELS_DIR, ON_SNELLIUS
+    global PROJECT_DIR, VENV_DIR, LOGS_DIR, MODELS_DIR, ON_SNELLIUS,CONDA_ENV
 
     # look for .cluster_config next to cluster.py
     here        = os.path.dirname(os.path.abspath(__file__))
@@ -75,6 +75,8 @@ def _load_config():
                     VENV_DIR = val
                 elif key == 'ON_SNELLIUS':
                     ON_SNELLIUS = val == 'True'
+                elif key == 'CONDA_ENV':
+                    CONDA_ENV = val
 
     if PROJECT_DIR:
         LOGS_DIR   = os.path.join(PROJECT_DIR, 'logs')
