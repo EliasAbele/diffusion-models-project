@@ -27,6 +27,7 @@ import os
 import sys
 import subprocess
 import platform
+import textwrap
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 VENV_DIR    = os.path.join(PROJECT_DIR, 'venv')
@@ -62,6 +63,22 @@ def write_config():
         f.write(f"ON_SNELLIUS={ON_SNELLIUS}\n")
     print(f"\nConfig written to {config_path}")
 
+def write_gitignore():
+    gitignore_path = os.path.join(PROJECT_DIR, '.gitignore')
+    if os.path.exists(gitignore_path):
+        print(f".gitignore already exists, skipping.")
+        return
+    with open(gitignore_path, 'w') as f:
+        f.write(textwrap.dedent("""\
+            .cluster_config
+            venv/
+            data/
+            *.job
+            __pycache__/
+            *.pyc
+        """))
+    print(f".gitignore written to {gitignore_path}")
+
 
 def main():
     print("=" * 60)
@@ -93,6 +110,7 @@ def main():
     create_venv()
     install_requirements()
     write_config()
+    write_gitignore() 
 
     print("\n✓ Setup complete. You can now use cluster.py from your notebook.")
 
