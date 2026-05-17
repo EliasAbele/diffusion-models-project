@@ -1,7 +1,4 @@
 """
-train_01_ddpm_mnist.py
-----------------------
-Training script derived from 01_denoising_diffusion_probabilistic_model.ipynb.
 Trains a stacked-dilated-convolution DDPM on MNIST.
 Saves model weights, loss curves, and generated sample images to:
     models/vivien_ddpm_mnist/
@@ -29,9 +26,7 @@ from torch.optim import Adam
 np.Inf = np.inf  # compatibility fix
 
 
-# ---------------------------------------------------------------------------
 # Argument parsing (mirrors cluster_train.py style)
-# ---------------------------------------------------------------------------
 
 def parse_args():
     p = argparse.ArgumentParser(description="Train DDPM (stacked conv) on MNIST")
@@ -48,9 +43,7 @@ def parse_args():
     return p.parse_args()
 
 
-# ---------------------------------------------------------------------------
 # Model components
-# ---------------------------------------------------------------------------
 
 class SinusoidalPosEmb(nn.Module):
     def __init__(self, dim):
@@ -153,9 +146,7 @@ class Denoiser(nn.Module):
         return y
 
 
-# ---------------------------------------------------------------------------
 # Diffusion process
-# ---------------------------------------------------------------------------
 
 class Diffusion(nn.Module):
     def __init__(self, model, image_resolution, n_times=1000,
@@ -223,9 +214,7 @@ class Diffusion(nn.Module):
         return self.reverse_scale_to_zero_to_one(x_t)
 
 
-# ---------------------------------------------------------------------------
 # Helpers
-# ---------------------------------------------------------------------------
 
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
@@ -241,9 +230,7 @@ def save_sample_grid(images, path, title):
     print(f"Saved: {path}")
 
 
-# ---------------------------------------------------------------------------
 # Main
-# ---------------------------------------------------------------------------
 
 def main():
     args = parse_args()
@@ -257,7 +244,6 @@ def main():
 
     os.makedirs(args.save_dir, exist_ok=True)
 
-    # --- Data ---
     transform = transforms.Compose([transforms.ToTensor()])
     train_dataset = MNIST(args.dataset_path, transform=transform, train=True,  download=True)
     test_dataset  = MNIST(args.dataset_path, transform=transform, train=False, download=True)
@@ -267,7 +253,6 @@ def main():
     test_loader  = DataLoader(test_dataset,  batch_size=64, shuffle=False,
                               num_workers=4, pin_memory=True)
 
-    # --- Model ---
     img_size = (28, 28, 1)
     hidden_dims = [args.hidden_dim] * args.n_layers
 
@@ -288,7 +273,6 @@ def main():
 
     print(f"Parameters: {count_parameters(diffusion):,}")
 
-    # --- Training ---
     print("Start training DDPM (stacked conv) on MNIST...")
     train_losses = []
 
@@ -316,12 +300,10 @@ def main():
             torch.save(model.state_dict(), ckpt_path)
             print(f"  Checkpoint saved: {ckpt_path}")
 
-    # --- Save final model and losses ---
     torch.save(model.state_dict(), os.path.join(args.save_dir, 'trained.pt'))
     torch.save({'train': train_losses}, os.path.join(args.save_dir, 'losses.pt'))
     print(f"Model saved to: {args.save_dir}/trained.pt")
 
-    # --- Generate and save sample images ---
     print("Generating samples...")
     model.eval()
     with torch.no_grad():
