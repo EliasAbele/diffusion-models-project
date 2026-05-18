@@ -70,12 +70,28 @@ class ResConvBlock(nn.Module):
     def __init__(self, in_ch, out_ch, time_emb_dim=None, num_groups=32):
         super().__init__()
         
-        # Handle case where in_ch < 32
-        num_groups = min(num_groups, in_ch, out_ch)
+        def get_valid_num_groups(channels, desired_groups):
+            """
+            Find the largest valid number of groups that divides channels.
+            Falls back to 1 if no divisor found (edge case for very small channels).
+            """
+            # Start with the minimum of desired_groups and channels
+            num_groups = min(desired_groups, channels)
+            
+            # Find largest divisor
+            while num_groups > 0:
+                if channels % num_groups == 0:
+                    return num_groups
+                num_groups -= 1
+            
+            return 1
+
+        groups_in = get_valid_num_groups(in_ch, num_groups)
+        groups_out = get_valid_num_groups(out_ch, num_groups)
         
-        self.norm1 = nn.GroupNorm(num_groups, in_ch)
+        self.norm1 = nn.GroupNorm(groups_in, in_ch)
         self.conv1 = nn.Conv2d(in_ch, out_ch, 3, padding=1)
-        self.norm2 = nn.GroupNorm(num_groups, out_ch)
+        self.norm2 = nn.GroupNorm(groups_out, out_ch)
         self.conv2 = nn.Conv2d(out_ch, out_ch, 3, padding=1)
         
         if time_emb_dim is not None:
@@ -83,7 +99,7 @@ class ResConvBlock(nn.Module):
                 nn.SiLU(),
                 nn.Linear(time_emb_dim, out_ch),
             )
-            # zero init for stable early training
+            # Zero init for stable early training
             nn.init.zeros_(self.time_mlp[-1].weight)
             nn.init.zeros_(self.time_mlp[-1].bias)
         else:
@@ -107,7 +123,7 @@ class ResConvBlock(nn.Module):
         h = F.silu(h)
         h = self.conv2(h)
         
-        return h + self.skip(x)  # Residual connection
+        return h + self.skip(x)
 
 class UNet(nn.Module):
 
