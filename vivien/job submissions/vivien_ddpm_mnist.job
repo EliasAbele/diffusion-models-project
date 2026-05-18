@@ -7,17 +7,19 @@
 #SBATCH --gpus=1
 #SBATCH --time=08:00:00
 #SBATCH --mem=32G
-#SBATCH --output=/home/scur0036/diffusion-models-project/logs/vivien_ddpm_mnist_%j.out
-#SBATCH --error=/home/scur0036/diffusion-models-project/logs/vivien_ddpm_mnist_%j.err
+#SBATCH --output=/home/scur0110/diffusion-models-project/logs/vivien_ddpm_mnist_%j.out
+#SBATCH --error=/home/scur0110/diffusion-models-project/logs/vivien_ddpm_mnist_%j.err
 
 echo "Job ID: $SLURM_JOB_ID"
 echo "Node:   $SLURMD_NODENAME"
 echo "Start:  $(date)"
 
-source ~/.bashrc
+module load 2024
+module load Miniconda3/24.7.1-0
+source $(conda info --base)/etc/profile.d/conda.sh
 conda activate diffusion
 
-cd /home/scur0036/diffusion-models-project
+cd /home/scur0110/diffusion-models-project
 
 python vivien/train_01_ddpm_mnist.py \
     --epochs 200 \
