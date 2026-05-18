@@ -10,7 +10,6 @@ import argparse
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import matplotlib
 matplotlib.use('Agg')  # non-interactive backend for cluster
 import matplotlib.pyplot as plt
@@ -18,7 +17,7 @@ import numpy as np
 
 from tqdm import tqdm
 from torchvision.datasets import MNIST
-from torchvision.utils import save_image, make_grid
+from torchvision.utils import make_grid
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from torch.optim import Adam
@@ -70,33 +69,33 @@ class ConvBlock(nn.Conv2d):
     """
 
     def __init__(self, in_channels, out_channels, kernel_size, activation_fn=None,
-                 drop_rate=0., stride=1, padding='same', dilation=1, gn=False,
-                 gn_groups=8, bias=False):
-        super(ConvBlock, self).__init__(
-            in_channels=in_channels, out_channels=out_channels,
-            kernel_size=kernel_size, stride=stride, padding=padding,
-            dilation=dilation, bias=bias
-        )
+                 drop_rate=0., stride=1, padding='same', dilation=1, groups=1,
+                 bias=True, gn=False, gn_groups=8):
+
+        if padding == 'same':
+            padding = kernel_size // 2 * dilation
+
+        super(ConvBlock, self).__init__(in_channels, out_channels, kernel_size,
+                                        stride=stride, padding=padding, dilation=dilation,
+                                        groups=groups, bias=bias)
+
         self.activation_fn = nn.SiLU() if activation_fn else None
-        self.norm = nn.GroupNorm(gn_groups, num_channels=out_channels) if gn else None
-        self.drop = nn.Dropout(drop_rate) if drop_rate > 0 else None
+        self.group_norm = nn.GroupNorm(gn_groups, out_channels) if gn else None
 
     def forward(self, x, time_embedding=None, residual=False):
-        # Merge time embedding (broadcast over H, W)
+
         if residual:
-            residual_x = x
-        x = super().forward(x)
-        if time_embedding is not None:
+            # in the paper, diffusion timestep embedding was only applied to residual blocks of U-Net
             x = x + time_embedding
-        if self.norm is not None:
-            x = self.norm(x)
-        if self.activation_fn is not None:
-            x = self.activation_fn(x)
-        if self.drop is not None:
-            x = self.drop(x)
-        if residual:
-            x = x + residual_x
-        return x
+            y = x
+            x = super(ConvBlock, self).forward(x)
+            y = y + x
+        else:
+            y = super(ConvBlock, self).forward(x)
+        y = self.group_norm(y) if self.group_norm is not None else y
+        y = self.activation_fn(y) if self.activation_fn is not None else y
+
+        return y
 
 
 class Denoiser(nn.Module):
@@ -294,15 +293,26 @@ def main():
         train_losses.append(avg_loss)
         print(f"\tEpoch {epoch + 1} complete!\tDenoising Loss: {avg_loss:.6f}")
 
-        # Save checkpoint every 10 epochs
-        if (epoch + 1) % 10 == 0:
+        # Save checkpoint every 50 epochs (notebook-compatible format)
+        if (epoch + 1) % 50 == 0:
             ckpt_path = os.path.join(args.save_dir, f'checkpoint_epoch_{epoch + 1}.pt')
-            torch.save(model.state_dict(), ckpt_path)
+            torch.save({
+                'epoch': epoch + 1,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'loss': avg_loss,
+            }, ckpt_path)
             print(f"  Checkpoint saved: {ckpt_path}")
 
-    torch.save(model.state_dict(), os.path.join(args.save_dir, 'trained.pt'))
+    final_path = os.path.join(args.save_dir, 'trained.pt')
+    torch.save({
+        'epoch': args.epochs,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'loss': train_losses[-1],
+    }, final_path)
     torch.save({'train': train_losses}, os.path.join(args.save_dir, 'losses.pt'))
-    print(f"Model saved to: {args.save_dir}/trained.pt")
+    print(f"Model saved to: {final_path}")
 
     print("Generating samples...")
     model.eval()
