@@ -113,10 +113,10 @@ class UNet(nn.Module):
 
     def __init__(self, channels: List[int] = [64, 128, 256, 512], convs_per_level=2,
              kernel_size=3, pool_size=2, padding=1, num_heads_att=8,
-             time_emb_dim=256, time_emb_base_dim=64):
+             time_emb_dim=256, time_emb_base_dim=64, input_channels=3):
         super().__init__()
 
-        full_channels = [3] + channels + channels[-2::-1]
+        full_channels = [input_channels] + channels + channels[-2::-1]
         self.mid = len(full_channels) // 2
 
         self.encoder_convs = nn.ModuleList([
@@ -169,7 +169,7 @@ class UNet(nn.Module):
               dropout=0.0,
               )
 
-        self.output_conv = nn.Conv2d(full_channels[-1], 3, kernel_size=1)
+        self.output_conv = nn.Conv2d(full_channels[-1], input_channels, kernel_size=1)
         self.pool = nn.MaxPool2d(pool_size)
         self.upsample = nn.Upsample(scale_factor=pool_size)
         self.activation_fn = F.relu
