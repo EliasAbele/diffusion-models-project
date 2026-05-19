@@ -24,7 +24,7 @@ pip install --quiet denoising-diffusion-pytorch
 
 cd /home/scur0110/diffusion-models-project
 
-python vivien/train_02_unet_fashion_mnist.py \
+python "vivien/training scripts/train_02_unet_fashion_mnist.py" \
     --epochs 200 \
     --batch_size 128 \
     --lr 5e-5 \
