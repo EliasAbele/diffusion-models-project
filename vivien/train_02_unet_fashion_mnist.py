@@ -1,7 +1,4 @@
 """
-train_02_unet_fashion_mnist.py
-------------------------------
-Training script derived from 02_ddpm_unet_fashion_mnist.ipynb.
 Trains a U-Net DDPM on FashionMNIST.
 Saves model weights, loss curves, and generated sample images to:
     models/vivien_unet_fashion_mnist/
@@ -25,6 +22,10 @@ import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from torch.optim import Adam
 
+# New denoiser from lucidrains' denoising-diffusion-pytorch
+#   pip install denoising-diffusion-pytorch
+from denoising_diffusion_pytorch import Unet as LucidUnet
+
 np.Inf = np.inf  # compatibility fix
 
 
@@ -44,84 +45,88 @@ def parse_args():
 
 
 # Model components
-
-class SinusoidalPosEmb(nn.Module):
-    def __init__(self, dim):
-        super().__init__()
-        self.dim = dim
-
-    def forward(self, x):
-        device = x.device
-        half_dim = self.dim // 2
-        emb = math.log(10000) / (half_dim - 1)
-        emb = torch.exp(torch.arange(half_dim, device=device) * -emb)
-        emb = x[:, None] * emb[None, :]
-        emb = torch.cat((emb.sin(), emb.cos()), dim=-1)
-        return emb
-
-
-class DoubleConv(nn.Module):
-    def __init__(self, in_channels, out_channels):
-        super().__init__()
-        self.double_conv = nn.Sequential(
-            nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
-            nn.GroupNorm(8, out_channels),
-            nn.SiLU(),
-            nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1),
-            nn.GroupNorm(8, out_channels),
-            nn.SiLU()
-        )
-
-    def forward(self, x):
-        return self.double_conv(x)
-
-
-class UNet(nn.Module):
-    def __init__(self, image_resolution, hidden_dims=[64, 128, 256],
-                 diffusion_time_embedding_dim=256, n_times=1000):
-        super(UNet, self).__init__()
-        _, _, img_C = image_resolution
-
-        self.time_embedding = SinusoidalPosEmb(diffusion_time_embedding_dim)
-        self.time_project = nn.Sequential(
-            nn.Linear(diffusion_time_embedding_dim, hidden_dims[0]),
-            nn.SiLU(),
-            nn.Linear(hidden_dims[0], hidden_dims[0])
-        )
-
-        # Encoder
-        self.inc   = DoubleConv(img_C, hidden_dims[0])
-        self.down1 = nn.Sequential(nn.MaxPool2d(2), DoubleConv(hidden_dims[0], hidden_dims[1]))
-        self.down2 = nn.Sequential(nn.MaxPool2d(2), DoubleConv(hidden_dims[1], hidden_dims[2]))
-
-        # Decoder with skip connections
-        self.up1      = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
-        self.conv_up1 = DoubleConv(hidden_dims[2] + hidden_dims[1], hidden_dims[1])
-
-        self.up2      = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
-        self.conv_up2 = DoubleConv(hidden_dims[1] + hidden_dims[0], hidden_dims[0])
-
-        self.outc = nn.Conv2d(hidden_dims[0], img_C, kernel_size=1)
-
-    def forward(self, x, diffusion_timestep):
-        t_emb = self.time_embedding(diffusion_timestep)
-        t_emb = self.time_project(t_emb).unsqueeze(-1).unsqueeze(-2)
-
-        x1 = self.inc(x)
-        x1 = x1 + t_emb
-
-        x2 = self.down1(x1)
-        x3 = self.down2(x2)
-
-        x = self.up1(x3)
-        x = torch.cat([x, x2], dim=1)
-        x = self.conv_up1(x)
-
-        x = self.up2(x)
-        x = torch.cat([x, x1], dim=1)
-        x = self.conv_up2(x)
-
-        return self.outc(x)
+#
+# The custom SinusoidalPosEmb / DoubleConv / UNet classes below are kept for
+# reference but commented out. The denoiser is now the lucidrains Unet (see
+# the import at the top of the file and the instantiation in main()).
+#
+# class SinusoidalPosEmb(nn.Module):
+#     def __init__(self, dim):
+#         super().__init__()
+#         self.dim = dim
+#
+#     def forward(self, x):
+#         device = x.device
+#         half_dim = self.dim // 2
+#         emb = math.log(10000) / (half_dim - 1)
+#         emb = torch.exp(torch.arange(half_dim, device=device) * -emb)
+#         emb = x[:, None] * emb[None, :]
+#         emb = torch.cat((emb.sin(), emb.cos()), dim=-1)
+#         return emb
+#
+#
+# class DoubleConv(nn.Module):
+#     def __init__(self, in_channels, out_channels):
+#         super().__init__()
+#         self.double_conv = nn.Sequential(
+#             nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
+#             nn.GroupNorm(8, out_channels),
+#             nn.SiLU(),
+#             nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1),
+#             nn.GroupNorm(8, out_channels),
+#             nn.SiLU()
+#         )
+#
+#     def forward(self, x):
+#         return self.double_conv(x)
+#
+#
+# class UNet(nn.Module):
+#     def __init__(self, image_resolution, hidden_dims=[64, 128, 256],
+#                  diffusion_time_embedding_dim=256, n_times=1000):
+#         super(UNet, self).__init__()
+#         _, _, img_C = image_resolution
+#
+#         self.time_embedding = SinusoidalPosEmb(diffusion_time_embedding_dim)
+#         self.time_project = nn.Sequential(
+#             nn.Linear(diffusion_time_embedding_dim, hidden_dims[0]),
+#             nn.SiLU(),
+#             nn.Linear(hidden_dims[0], hidden_dims[0])
+#         )
+#
+#         # Encoder
+#         self.inc   = DoubleConv(img_C, hidden_dims[0])
+#         self.down1 = nn.Sequential(nn.MaxPool2d(2), DoubleConv(hidden_dims[0], hidden_dims[1]))
+#         self.down2 = nn.Sequential(nn.MaxPool2d(2), DoubleConv(hidden_dims[1], hidden_dims[2]))
+#
+#         # Decoder with skip connections
+#         self.up1      = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
+#         self.conv_up1 = DoubleConv(hidden_dims[2] + hidden_dims[1], hidden_dims[1])
+#
+#         self.up2      = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
+#         self.conv_up2 = DoubleConv(hidden_dims[1] + hidden_dims[0], hidden_dims[0])
+#
+#         self.outc = nn.Conv2d(hidden_dims[0], img_C, kernel_size=1)
+#
+#     def forward(self, x, diffusion_timestep):
+#         t_emb = self.time_embedding(diffusion_timestep)
+#         t_emb = self.time_project(t_emb).unsqueeze(-1).unsqueeze(-2)
+#
+#         x1 = self.inc(x)
+#         x1 = x1 + t_emb
+#
+#         x2 = self.down1(x1)
+#         x3 = self.down2(x2)
+#
+#         x = self.up1(x3)
+#         x = torch.cat([x, x2], dim=1)
+#         x = self.conv_up1(x)
+#
+#         x = self.up2(x)
+#         x = torch.cat([x, x1], dim=1)
+#         x = self.conv_up2(x)
+#
+#         return self.outc(x)
 
 
 # Diffusion process
@@ -233,11 +238,14 @@ def main():
 
     img_size = (28, 28, 1)
 
-    model = UNet(
-        image_resolution=img_size,
-        hidden_dims=[64, 128, 256],
-        diffusion_time_embedding_dim=args.timestep_emb_dim,
-        n_times=args.n_timesteps,
+    # Lucidrains' Unet — drop-in replacement for the old custom UNet.
+    # forward(x, time) -> predicted noise, matches what Diffusion expects.
+    # For 28x28 FashionMNIST: dim_mults=(1, 2, 4) gives 3 levels (28 -> 14 -> 7).
+    model = LucidUnet(
+        dim=32,
+        dim_mults=(1, 2, 4),
+        channels=1,
+        flash_attn=False,
     ).to(DEVICE)
 
     diffusion = Diffusion(
