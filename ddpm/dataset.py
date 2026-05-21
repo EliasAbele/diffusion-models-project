@@ -1,10 +1,59 @@
 import torch
 from torch.utils.data import DataLoader,Subset
 from torchvision import datasets, transforms
+import torch.nn.functional as F
 
 from .scheduler import NoiseScheduler
 
+from torch.utils.data import Dataset
+ 
+class GalaxyDataset(Dataset):
+    """
+    Wrapper for Galaxy10 (or any numpy array dataset) to make it compatible 
+    with PyTorch Dataset interface.
+    
+    Args:
+        images: numpy array of images with shape (N, H, W, C) or (N, H, W)
+        labels: numpy array of labels with shape (N,)
+        transform: optional transform to apply to images
+    """
+    def __init__(self, images, labels=None, transform=None):
+        self.images = images
+        self.labels = labels if labels is not None else np.zeros(len(images))
+        self.transform = transform
+ 
+    def __len__(self):
+        return len(self.images)
+ 
+    def __getitem__(self, idx):
+        # Get image and label
+        x = self.images[idx]
+        y = self.labels[idx]
+ 
+        # Convert numpy → torch tensor
+        x = torch.tensor(x, dtype=torch.float32)
+        
+        # Normalize to [0, 1] if needed (Galaxy10 is [0, 255])
+        if x.max() > 1.0:
+            x = x / 255.0
+ 
+        # Convert HWC → CHW format for PyTorch
+        if x.ndim == 3 and x.shape[-1] in [1, 3]:  # Check if last dim is channels
+            x = x.permute(2, 0, 1)
 
+            x = F.interpolate(
+                x.unsqueeze(0),
+                size=(64, 64),
+                mode='bilinear',
+                align_corners=False
+            ).squeeze(0)
+        
+        # Apply optional transform
+        if self.transform:
+            x = self.transform(x)
+ 
+        return x, y
+    
 class NoisyDataset(torch.utils.data.Dataset):
     def __init__(self, dataset, scheduler: NoiseScheduler):
         self.dataset = dataset
@@ -21,7 +70,7 @@ class NoisyDataset(torch.utils.data.Dataset):
             x.unsqueeze(0).to(scheduler_device),
             t.to(scheduler_device)
         )
-        return x_noisy.squeeze(0), noise.squeeze(0)
+        return x_noisy.squeeze(0), noise.squeeze(0), t.squeeze(0)
     
 NoisyMNIST = NoisyDataset
 
