@@ -31,6 +31,27 @@ class SinusoidalTimeEmbedding(nn.Module):
 
         return self.proj(emb)  # (B, hidden_dim)
 
+class SelfAtt2d(nn.Module):
+    def __init__(self, channels, num_heads):
+        super().__init__()
+
+        self.norm = nn.LayerNorm(channels)
+        self.attn = nn.MultiheadAttention(
+            embed_dim=channels,
+            num_heads=num_heads,
+            batch_first=True
+        )
+
+    def forward(self, x):
+        b, c, h, w = x.shape
+        x_seq = x.permute(0, 2, 3, 1).reshape(b, h * w, c)
+
+        x_norm = self.norm(x_seq)
+        attn_out, _ = self.attn(x_norm, x_norm, x_norm)
+        x_seq = x_seq + attn_out
+
+        return x_seq.reshape(b, h, w, c).permute(0, 3, 1, 2).contiguous()
+
 class TransformerBlock2d(nn.Module):
     def __init__(self, channels, num_heads, ff_mult=4, dropout=0.0):
         super().__init__()
@@ -70,28 +91,12 @@ class ResConvBlock(nn.Module):
     def __init__(self, in_ch, out_ch, time_emb_dim=None, num_groups=32):
         super().__init__()
         
-        def get_valid_num_groups(channels, desired_groups):
-            """
-            Find the largest valid number of groups that divides channels.
-            Falls back to 1 if no divisor found (edge case for very small channels).
-            """
-            # Start with the minimum of desired_groups and channels
-            num_groups = min(desired_groups, channels)
-            
-            # Find largest divisor
-            while num_groups > 0:
-                if channels % num_groups == 0:
-                    return num_groups
-                num_groups -= 1
-            
-            return 1
-
-        groups_in = get_valid_num_groups(in_ch, num_groups)
-        groups_out = get_valid_num_groups(out_ch, num_groups)
+        # Handle case where in_ch < 32
+        num_groups = min(num_groups, in_ch, out_ch)
         
-        self.norm1 = nn.GroupNorm(groups_in, in_ch)
+        self.norm1 = nn.GroupNorm(num_groups, in_ch)
         self.conv1 = nn.Conv2d(in_ch, out_ch, 3, padding=1)
-        self.norm2 = nn.GroupNorm(groups_out, out_ch)
+        self.norm2 = nn.GroupNorm(num_groups, out_ch)
         self.conv2 = nn.Conv2d(out_ch, out_ch, 3, padding=1)
         
         if time_emb_dim is not None:
@@ -99,7 +104,7 @@ class ResConvBlock(nn.Module):
                 nn.SiLU(),
                 nn.Linear(time_emb_dim, out_ch),
             )
-            # Zero init for stable early training
+            # zero init for stable early training
             nn.init.zeros_(self.time_mlp[-1].weight)
             nn.init.zeros_(self.time_mlp[-1].bias)
         else:
@@ -123,16 +128,16 @@ class ResConvBlock(nn.Module):
         h = F.silu(h)
         h = self.conv2(h)
         
-        return h + self.skip(x)
+        return h + self.skip(x)  # Residual connection
 
 class UNet(nn.Module):
 
-    def __init__(self, channels: List[int] = [64, 128, 256, 512], convs_per_level=2,
-             kernel_size=3, pool_size=2, padding=1, num_heads_att=8,
-             time_emb_dim=256, time_emb_base_dim=64, input_channels=3):
+    def __init__(self, channels: List[int] = [32, 64, 128], convs_per_level=2,
+             kernel_size=3, pool_size=2, padding=1, num_heads_att=4,
+             time_emb_dim=128, time_emb_base_dim=32):
         super().__init__()
 
-        full_channels = [input_channels] + channels + channels[-2::-1]
+        full_channels = [1] + channels + channels[-2::-1]
         self.mid = len(full_channels) // 2
 
         self.encoder_convs = nn.ModuleList([
@@ -161,14 +166,11 @@ class UNet(nn.Module):
       ])
 
         #time embedding
-        if time_emb_dim is None:
-            self.time_embedding = None
-        else:
-            self.time_embedding = SinusoidalTimeEmbedding(
-                d=time_emb_base_dim,
-                hidden_dim=time_emb_dim
-            )
-   
+        self.time_embedding = SinusoidalTimeEmbedding(
+            d=time_emb_base_dim,
+            hidden_dim=time_emb_dim
+        )
+
         #attention
         bottleneck_channels = full_channels[self.mid]
     
@@ -185,7 +187,7 @@ class UNet(nn.Module):
               dropout=0.0,
               )
 
-        self.output_conv = nn.Conv2d(full_channels[-1], input_channels, kernel_size=1)
+        self.output_conv = nn.Conv2d(full_channels[-1], 1, kernel_size=1)
         self.pool = nn.MaxPool2d(pool_size)
         self.upsample = nn.Upsample(scale_factor=pool_size)
         self.activation_fn = F.relu
@@ -202,29 +204,29 @@ class UNet(nn.Module):
         }
 
     def forward(self, x, t=None):
-        t_emb = None if self.time_embedding is None or t is None else self.time_embedding(t)
-        
-        skips = []
-        last_encoder = len(self.encoder_convs) - 1
-        
-        # ENCODER 
-        for i, conv_block in enumerate(self.encoder_convs):  
-            for block in conv_block:
-                x = block(x, t_emb)  
-            
-            if i < last_encoder:
-                skips.append(x)
-                x = self.pool(x)
-        
-        # BOTTLENECK
-        x = self.attention(x)
-        
-        # DECODER
-        for i, conv_block in enumerate(self.decoder_convs):
-            x = self.upsample(x)
-            x = torch.cat([x, skips.pop()], dim=1)
-            
-            for block in conv_block:
-                x = block(x, t_emb)  
-        
-        return self.output_conv(x)
+      t_emb = None if t is None else self.time_embedding(t)
+      
+      skips = []
+      last_encoder = len(self.encoder_convs) - 1
+      
+      # ENCODER
+      for i, conv_block in enumerate(self.encoder_convs):
+          for block in conv_block:
+              x = block(x, t_emb)  
+          
+          if i < last_encoder:
+              skips.append(x)
+              x = self.pool(x)
+      
+      # BOTTLENECK
+      x = self.attention(x)
+      
+      # DECODER
+      for i, conv_block in enumerate(self.decoder_convs):
+          x = self.upsample(x)
+          x = torch.cat([x, skips.pop()], dim=1)
+          
+          for block in conv_block:
+              x = block(x, t_emb)  
+      
+      return self.output_conv(x)
