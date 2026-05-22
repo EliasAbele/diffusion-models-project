@@ -1,0 +1,36 @@
+#!/bin/bash
+#SBATCH --job-name=vivien_unet_fashion
+#SBATCH --partition=gpu_a100
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --gpus=1
+#SBATCH --time=08:00:00
+#SBATCH --mem=32G
+#SBATCH --output=/home/scur0110/diffusion-models-project/logs/vivien_unet_fashion_%j.out
+#SBATCH --error=/home/scur0110/diffusion-models-project/logs/vivien_unet_fashion_%j.err
+
+echo "Job ID: $SLURM_JOB_ID"
+echo "Node:   $SLURMD_NODENAME"
+echo "Start:  $(date)"
+
+module load 2024
+module load Miniconda3/24.7.1-0
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate diffusion
+
+# Ensure the lucidrains denoiser is available in the env (no-op if already installed)
+pip install --quiet denoising-diffusion-pytorch
+
+cd /home/scur0110/diffusion-models-project
+
+python "vivien/training scripts/train_02_unet_fashion_mnist.py" \
+    --epochs 200 \
+    --batch_size 128 \
+    --lr 5e-5 \
+    --n_timesteps 1000 \
+    --timestep_emb_dim 256 \
+    --dataset_path ~/datasets \
+    --save_dir models/vivien_lucidrains_unet_fashion_mnist
+
+echo "Done: $(date)"
