@@ -1,0 +1,17 @@
+Job ID: 22737460
+Node: gcn62
+Start: Thu May 14 00:56:09 CEST 2026
+Device: cuda
+Config: {'model_path': '/home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/init.pt', 'train_dataset_path': '/home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/train_dataset.pt', 'test_dataset_path': '/home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/test_dataset.pt', 'epochs': 1, 'batch_size': 32, 'weight_decay': 1e-06, 'lr': None, 'save_path': '/home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/trained.pkl', 'early_stopping': 15}
+Parameters: 7,524,097
+Train samples: 60000, Test samples: 10000
+Stopping early, the loss has diverged
+Learning rate search finished. See the graph with {finder_name}.plot()
+LR suggestion: steepest gradient
+Suggested LR: 3.59E-06
+LR finder: 3.59e-06 → using 1.80e-06
+Epoch 0 | train loss: 0.0250 | test loss: 0.0246
+Best test loss: 0.0246
+Trained model saved to: /home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/trained.pkl
+Cleaned up init files.
+Done: Thu May 14 00:56:52 CEST 2026

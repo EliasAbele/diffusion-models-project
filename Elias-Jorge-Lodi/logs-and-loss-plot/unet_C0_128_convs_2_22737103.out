@@ -1,0 +1,6 @@
+Job ID: 22737103
+Node: gcn49
+Start: Thu May 14 00:27:00 CEST 2026
+Device: cuda
+Config: {'model_path': '/home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/init.pt', 'train_dataset_path': '/home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/train_dataset.pt', 'test_dataset_path': '/home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/test_dataset.pt', 'epochs': 200, 'batch_size': 32, 'weight_decay': 1e-06, 'lr': None, 'save_path': '/home/scur0036/diffusion-models-project/models/unet_C0_128_convs_2/trained.pkl', 'early_stopping': 15}
+Done: Thu May 14 00:27:37 CEST 2026
