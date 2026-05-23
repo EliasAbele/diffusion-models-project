@@ -1,0 +1,416 @@
+wandb run: galaxy_UNet_attention_8_timeemb_0_epochs_50
+wandb url: https://wandb.ai/jorgegolj0416-vrije-universiteit-amsterdam/galaxy-ddpm/runs/kgdpug65
+
+================================================================================
+LOADING GALAXY10 DATASET
+================================================================================
+/home/scur0071/.astroNN/datasets/Galaxy10_DECals.h5 was found!
+Dataset loaded successfully
+  Total samples: 17736
+  Image shape: (256, 256, 3)
+  Value range: [0.00, 255.00]
+  Saved samples to: results/sample_galaxies.png
+
+================================================================================
+CREATING TRAIN/TEST SPLIT
+================================================================================
+Train set: 15962 samples
+Test set:  1774 samples
+
+================================================================================
+CREATING NOISY DATASETS
+================================================================================
+Noise scheduler configured:
+  T: 1000
+  Beta start: 0.0001
+  Beta end: 0.02
+
+================================================================================
+BUILDING UNET MODEL
+================================================================================
+/home/scur0071/mlpa_env/lib64/python3.9/site-packages/torch/nn/init.py:511: UserWarning: Initializing zero-element tensors is a no-op
+📦 UNet class: UNet
+📁 Loaded from module: ddpm.model
+Model: C0_128_convs_2
+  Total parameters: 18,773,897
+  Input channels: 3
+  Base channels: 128
+  Attention heads: 8
+  Time embedding dimension: 0
+  Convolutions per level: 2
+
+================================================================================
+CREATING DATA LOADERS
+================================================================================
+Batch size: 16
+Train batches: 998
+Test batches: 111
+
+================================================================================
+SETTING UP TRAINING
+================================================================================
+Training configuration:
+  Epochs: 50
+  Learning rate: 0.0001
+  Weight decay: 1e-06
+  Early stopping patience: 10
+  Save path: models/galaxy_20260522_160333.pkl
+
+================================================================================
+STARTING TRAINING
+================================================================================
+/gpfs/home6/scur0071/Project/diffusion-models-project/train_galaxy_no_time.py:296: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+/gpfs/home6/scur0071/Project/diffusion-models-project/train_galaxy_no_time.py:309: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  Epoch [1/50] Batch [0/998] Loss: 1.285304
+  Epoch [1/50] Batch [50/998] Loss: 0.115297
+  Epoch [1/50] Batch [100/998] Loss: 0.060074
+  Epoch [1/50] Batch [150/998] Loss: 0.014206
+  Epoch [1/50] Batch [200/998] Loss: 0.007383
+  Epoch [1/50] Batch [250/998] Loss: 0.067448
+  Epoch [1/50] Batch [300/998] Loss: 0.037564
+  Epoch [1/50] Batch [350/998] Loss: 0.009656
+  Epoch [1/50] Batch [400/998] Loss: 0.069699
+  Epoch [1/50] Batch [450/998] Loss: 0.011140
+  Epoch [1/50] Batch [500/998] Loss: 0.022422
+  Epoch [1/50] Batch [550/998] Loss: 0.010228
+  Epoch [1/50] Batch [600/998] Loss: 0.015649
+  Epoch [1/50] Batch [650/998] Loss: 0.030205
+  Epoch [1/50] Batch [700/998] Loss: 0.002083
+  Epoch [1/50] Batch [750/998] Loss: 0.046723
+  Epoch [1/50] Batch [800/998] Loss: 0.007144
+  Epoch [1/50] Batch [850/998] Loss: 0.033107
+  Epoch [1/50] Batch [900/998] Loss: 0.033433
+  Epoch [1/50] Batch [950/998] Loss: 0.017879
+Epoch [1/50] Train Loss: 0.051398 | Test Loss: 0.020582
+  ✓ New best model saved (test loss: 0.020582)
+wandb: WARNING Symlinked 1 file into the W&B run directory; call wandb.save again to sync new files.
+  Epoch [2/50] Batch [0/998] Loss: 0.023094
+  Epoch [2/50] Batch [50/998] Loss: 0.007560
+  Epoch [2/50] Batch [100/998] Loss: 0.004640
+  Epoch [2/50] Batch [150/998] Loss: 0.059070
+  Epoch [2/50] Batch [200/998] Loss: 0.052950
+  Epoch [2/50] Batch [250/998] Loss: 0.022635
+  Epoch [2/50] Batch [300/998] Loss: 0.041074
+  Epoch [2/50] Batch [350/998] Loss: 0.012512
+  Epoch [2/50] Batch [400/998] Loss: 0.026675
+  Epoch [2/50] Batch [450/998] Loss: 0.076002
+  Epoch [2/50] Batch [500/998] Loss: 0.004278
+  Epoch [2/50] Batch [550/998] Loss: 0.080009
+  Epoch [2/50] Batch [600/998] Loss: 0.001102
+  Epoch [2/50] Batch [650/998] Loss: 0.007827
+  Epoch [2/50] Batch [700/998] Loss: 0.005749
+  Epoch [2/50] Batch [750/998] Loss: 0.006452
+  Epoch [2/50] Batch [800/998] Loss: 0.010542
+  Epoch [2/50] Batch [850/998] Loss: 0.017420
+  Epoch [2/50] Batch [900/998] Loss: 0.003717
+  Epoch [2/50] Batch [950/998] Loss: 0.008518
+Epoch [2/50] Train Loss: 0.018318 | Test Loss: 0.018106
+  ✓ New best model saved (test loss: 0.018106)
+  Epoch [3/50] Batch [0/998] Loss: 0.011213
+  Epoch [3/50] Batch [50/998] Loss: 0.009943
+  Epoch [3/50] Batch [100/998] Loss: 0.016447
+  Epoch [3/50] Batch [150/998] Loss: 0.006845
+  Epoch [3/50] Batch [200/998] Loss: 0.016990
+  Epoch [3/50] Batch [250/998] Loss: 0.018651
+  Epoch [3/50] Batch [300/998] Loss: 0.002788
+  Epoch [3/50] Batch [350/998] Loss: 0.035973
+  Epoch [3/50] Batch [400/998] Loss: 0.012440
+  Epoch [3/50] Batch [450/998] Loss: 0.020987
+  Epoch [3/50] Batch [500/998] Loss: 0.028513
+  Epoch [3/50] Batch [550/998] Loss: 0.002070
+  Epoch [3/50] Batch [600/998] Loss: 0.011072
+  Epoch [3/50] Batch [650/998] Loss: 0.039299
+  Epoch [3/50] Batch [700/998] Loss: 0.063924
+  Epoch [3/50] Batch [750/998] Loss: 0.003493
+  Epoch [3/50] Batch [800/998] Loss: 0.044964
+  Epoch [3/50] Batch [850/998] Loss: 0.005772
+  Epoch [3/50] Batch [900/998] Loss: 0.014192
+  Epoch [3/50] Batch [950/998] Loss: 0.002402
+Epoch [3/50] Train Loss: 0.016735 | Test Loss: 0.014275
+  ✓ New best model saved (test loss: 0.014275)
+  Epoch [4/50] Batch [0/998] Loss: 0.048109
+  Epoch [4/50] Batch [50/998] Loss: 0.018257
+  Epoch [4/50] Batch [100/998] Loss: 0.019818
+  Epoch [4/50] Batch [150/998] Loss: 0.005965
+  Epoch [4/50] Batch [200/998] Loss: 0.013395
+  Epoch [4/50] Batch [250/998] Loss: 0.005253
+  Epoch [4/50] Batch [300/998] Loss: 0.004032
+  Epoch [4/50] Batch [350/998] Loss: 0.008381
+  Epoch [4/50] Batch [400/998] Loss: 0.053523
+  Epoch [4/50] Batch [450/998] Loss: 0.027462
+  Epoch [4/50] Batch [500/998] Loss: 0.021633
+  Epoch [4/50] Batch [550/998] Loss: 0.003564
+  Epoch [4/50] Batch [600/998] Loss: 0.040847
+  Epoch [4/50] Batch [650/998] Loss: 0.034024
+  Epoch [4/50] Batch [700/998] Loss: 0.006110
+  Epoch [4/50] Batch [750/998] Loss: 0.002040
+  Epoch [4/50] Batch [800/998] Loss: 0.002728
+  Epoch [4/50] Batch [850/998] Loss: 0.029833
+  Epoch [4/50] Batch [900/998] Loss: 0.005010
+  Epoch [4/50] Batch [950/998] Loss: 0.005549
+Epoch [4/50] Train Loss: 0.018038 | Test Loss: 0.018572
+  No improvement (1/10)
+  Epoch [5/50] Batch [0/998] Loss: 0.018816
+  Epoch [5/50] Batch [50/998] Loss: 0.057905
+  Epoch [5/50] Batch [100/998] Loss: 0.043804
+  Epoch [5/50] Batch [150/998] Loss: 0.003269
+  Epoch [5/50] Batch [200/998] Loss: 0.021471
+  Epoch [5/50] Batch [250/998] Loss: 0.003534
+  Epoch [5/50] Batch [300/998] Loss: 0.006633
+  Epoch [5/50] Batch [350/998] Loss: 0.002756
+  Epoch [5/50] Batch [400/998] Loss: 0.006032
+  Epoch [5/50] Batch [450/998] Loss: 0.045722
+  Epoch [5/50] Batch [500/998] Loss: 0.017800
+  Epoch [5/50] Batch [550/998] Loss: 0.003111
+  Epoch [5/50] Batch [600/998] Loss: 0.003136
+  Epoch [5/50] Batch [650/998] Loss: 0.037508
+  Epoch [5/50] Batch [700/998] Loss: 0.003729
+  Epoch [5/50] Batch [750/998] Loss: 0.004301
+  Epoch [5/50] Batch [800/998] Loss: 0.008232
+  Epoch [5/50] Batch [850/998] Loss: 0.009796
+  Epoch [5/50] Batch [900/998] Loss: 0.021713
+  Epoch [5/50] Batch [950/998] Loss: 0.003925
+Epoch [5/50] Train Loss: 0.016206 | Test Loss: 0.017914
+  Generating sample images...
+  Saved generated images to: results/generated_epoch_5.png
+  No improvement (2/10)
+  Epoch [6/50] Batch [0/998] Loss: 0.028861
+  Epoch [6/50] Batch [50/998] Loss: 0.034498
+  Epoch [6/50] Batch [100/998] Loss: 0.003254
+  Epoch [6/50] Batch [150/998] Loss: 0.003191
+  Epoch [6/50] Batch [200/998] Loss: 0.004205
+  Epoch [6/50] Batch [250/998] Loss: 0.002204
+  Epoch [6/50] Batch [300/998] Loss: 0.010962
+  Epoch [6/50] Batch [350/998] Loss: 0.006127
+  Epoch [6/50] Batch [400/998] Loss: 0.017153
+  Epoch [6/50] Batch [450/998] Loss: 0.002487
+  Epoch [6/50] Batch [500/998] Loss: 0.008074
+  Epoch [6/50] Batch [550/998] Loss: 0.044287
+  Epoch [6/50] Batch [600/998] Loss: 0.006233
+  Epoch [6/50] Batch [650/998] Loss: 0.005278
+  Epoch [6/50] Batch [700/998] Loss: 0.007847
+  Epoch [6/50] Batch [750/998] Loss: 0.029905
+  Epoch [6/50] Batch [800/998] Loss: 0.046144
+  Epoch [6/50] Batch [850/998] Loss: 0.008981
+  Epoch [6/50] Batch [900/998] Loss: 0.004115
+  Epoch [6/50] Batch [950/998] Loss: 0.001150
+Epoch [6/50] Train Loss: 0.018063 | Test Loss: 0.015235
+  No improvement (3/10)
+  Epoch [7/50] Batch [0/998] Loss: 0.074516
+  Epoch [7/50] Batch [50/998] Loss: 0.005347
+  Epoch [7/50] Batch [100/998] Loss: 0.004985
+  Epoch [7/50] Batch [150/998] Loss: 0.003238
+  Epoch [7/50] Batch [200/998] Loss: 0.055548
+  Epoch [7/50] Batch [250/998] Loss: 0.007194
+  Epoch [7/50] Batch [300/998] Loss: 0.007165
+  Epoch [7/50] Batch [350/998] Loss: 0.002813
+  Epoch [7/50] Batch [400/998] Loss: 0.012616
+  Epoch [7/50] Batch [450/998] Loss: 0.010349
+  Epoch [7/50] Batch [500/998] Loss: 0.001811
+  Epoch [7/50] Batch [550/998] Loss: 0.006362
+  Epoch [7/50] Batch [600/998] Loss: 0.001414
+  Epoch [7/50] Batch [650/998] Loss: 0.004137
+  Epoch [7/50] Batch [700/998] Loss: 0.069518
+  Epoch [7/50] Batch [750/998] Loss: 0.015437
+  Epoch [7/50] Batch [800/998] Loss: 0.014903
+  Epoch [7/50] Batch [850/998] Loss: 0.002692
+  Epoch [7/50] Batch [900/998] Loss: 0.007082
+  Epoch [7/50] Batch [950/998] Loss: 0.026773
+Epoch [7/50] Train Loss: 0.015696 | Test Loss: 0.014755
+  No improvement (4/10)
+  Epoch [8/50] Batch [0/998] Loss: 0.008656
+  Epoch [8/50] Batch [50/998] Loss: 0.031957
+  Epoch [8/50] Batch [100/998] Loss: 0.007681
+  Epoch [8/50] Batch [150/998] Loss: 0.011536
+  Epoch [8/50] Batch [200/998] Loss: 0.029384
+  Epoch [8/50] Batch [250/998] Loss: 0.003108
+  Epoch [8/50] Batch [300/998] Loss: 0.002005
+  Epoch [8/50] Batch [350/998] Loss: 0.001930
+  Epoch [8/50] Batch [400/998] Loss: 0.006297
+  Epoch [8/50] Batch [450/998] Loss: 0.001675
+  Epoch [8/50] Batch [500/998] Loss: 0.015340
+  Epoch [8/50] Batch [550/998] Loss: 0.018510
+  Epoch [8/50] Batch [600/998] Loss: 0.067751
+  Epoch [8/50] Batch [650/998] Loss: 0.004263
+  Epoch [8/50] Batch [700/998] Loss: 0.009928
+  Epoch [8/50] Batch [750/998] Loss: 0.001563
+  Epoch [8/50] Batch [800/998] Loss: 0.024956
+  Epoch [8/50] Batch [850/998] Loss: 0.022008
+  Epoch [8/50] Batch [900/998] Loss: 0.002027
+  Epoch [8/50] Batch [950/998] Loss: 0.003309
+Epoch [8/50] Train Loss: 0.017669 | Test Loss: 0.019094
+  No improvement (5/10)
+  Epoch [9/50] Batch [0/998] Loss: 0.040828
+  Epoch [9/50] Batch [50/998] Loss: 0.005945
+  Epoch [9/50] Batch [100/998] Loss: 0.052510
+  Epoch [9/50] Batch [150/998] Loss: 0.006527
+  Epoch [9/50] Batch [200/998] Loss: 0.002755
+  Epoch [9/50] Batch [250/998] Loss: 0.004826
+  Epoch [9/50] Batch [300/998] Loss: 0.005701
+  Epoch [9/50] Batch [350/998] Loss: 0.039757
+  Epoch [9/50] Batch [400/998] Loss: 0.002677
+  Epoch [9/50] Batch [450/998] Loss: 0.018293
+  Epoch [9/50] Batch [500/998] Loss: 0.005801
+  Epoch [9/50] Batch [550/998] Loss: 0.008398
+  Epoch [9/50] Batch [600/998] Loss: 0.008565
+  Epoch [9/50] Batch [650/998] Loss: 0.001366
+  Epoch [9/50] Batch [700/998] Loss: 0.021419
+  Epoch [9/50] Batch [750/998] Loss: 0.011883
+  Epoch [9/50] Batch [800/998] Loss: 0.002749
+  Epoch [9/50] Batch [850/998] Loss: 0.002146
+  Epoch [9/50] Batch [900/998] Loss: 0.004131
+  Epoch [9/50] Batch [950/998] Loss: 0.005094
+Epoch [9/50] Train Loss: 0.016452 | Test Loss: 0.016635
+  No improvement (6/10)
+  Epoch [10/50] Batch [0/998] Loss: 0.002281
+  Epoch [10/50] Batch [50/998] Loss: 0.002050
+  Epoch [10/50] Batch [100/998] Loss: 0.004376
+  Epoch [10/50] Batch [150/998] Loss: 0.025506
+  Epoch [10/50] Batch [200/998] Loss: 0.001834
+  Epoch [10/50] Batch [250/998] Loss: 0.001703
+  Epoch [10/50] Batch [300/998] Loss: 0.001923
+  Epoch [10/50] Batch [350/998] Loss: 0.012121
+  Epoch [10/50] Batch [400/998] Loss: 0.003077
+  Epoch [10/50] Batch [450/998] Loss: 0.035041
+  Epoch [10/50] Batch [500/998] Loss: 0.008897
+  Epoch [10/50] Batch [550/998] Loss: 0.019988
+  Epoch [10/50] Batch [600/998] Loss: 0.006011
+  Epoch [10/50] Batch [650/998] Loss: 0.002337
+  Epoch [10/50] Batch [700/998] Loss: 0.038187
+  Epoch [10/50] Batch [750/998] Loss: 0.009097
+  Epoch [10/50] Batch [800/998] Loss: 0.006284
+  Epoch [10/50] Batch [850/998] Loss: 0.021517
+  Epoch [10/50] Batch [900/998] Loss: 0.007049
+  Epoch [10/50] Batch [950/998] Loss: 0.092050
+Epoch [10/50] Train Loss: 0.016834 | Test Loss: 0.016641
+  Generating sample images...
+  Saved generated images to: results/generated_epoch_10.png
+  No improvement (7/10)
+  Epoch [11/50] Batch [0/998] Loss: 0.002300
+  Epoch [11/50] Batch [50/998] Loss: 0.020079
+  Epoch [11/50] Batch [100/998] Loss: 0.006318
+  Epoch [11/50] Batch [150/998] Loss: 0.010033
+  Epoch [11/50] Batch [200/998] Loss: 0.009471
+  Epoch [11/50] Batch [250/998] Loss: 0.006293
+  Epoch [11/50] Batch [300/998] Loss: 0.001663
+  Epoch [11/50] Batch [350/998] Loss: 0.007700
+  Epoch [11/50] Batch [400/998] Loss: 0.010133
+  Epoch [11/50] Batch [450/998] Loss: 0.004561
+  Epoch [11/50] Batch [500/998] Loss: 0.008546
+  Epoch [11/50] Batch [550/998] Loss: 0.024780
+  Epoch [11/50] Batch [600/998] Loss: 0.017756
+  Epoch [11/50] Batch [650/998] Loss: 0.003652
+  Epoch [11/50] Batch [700/998] Loss: 0.002737
+  Epoch [11/50] Batch [750/998] Loss: 0.004705
+  Epoch [11/50] Batch [800/998] Loss: 0.002856
+  Epoch [11/50] Batch [850/998] Loss: 0.003011
+  Epoch [11/50] Batch [900/998] Loss: 0.002334
+  Epoch [11/50] Batch [950/998] Loss: 0.004045
+Epoch [11/50] Train Loss: 0.016233 | Test Loss: 0.020566
+  No improvement (8/10)
+  Epoch [12/50] Batch [0/998] Loss: 0.016338
+  Epoch [12/50] Batch [50/998] Loss: 0.004147
+  Epoch [12/50] Batch [100/998] Loss: 0.030389
+  Epoch [12/50] Batch [150/998] Loss: 0.030004
+  Epoch [12/50] Batch [200/998] Loss: 0.002011
+  Epoch [12/50] Batch [250/998] Loss: 0.001917
+  Epoch [12/50] Batch [300/998] Loss: 0.012313
+  Epoch [12/50] Batch [350/998] Loss: 0.066444
+  Epoch [12/50] Batch [400/998] Loss: 0.020246
+  Epoch [12/50] Batch [450/998] Loss: 0.004019
+  Epoch [12/50] Batch [500/998] Loss: 0.033963
+  Epoch [12/50] Batch [550/998] Loss: 0.003070
+  Epoch [12/50] Batch [600/998] Loss: 0.005034
+  Epoch [12/50] Batch [650/998] Loss: 0.011293
+  Epoch [12/50] Batch [700/998] Loss: 0.006302
+  Epoch [12/50] Batch [750/998] Loss: 0.004378
+  Epoch [12/50] Batch [800/998] Loss: 0.017652
+  Epoch [12/50] Batch [850/998] Loss: 0.006348
+  Epoch [12/50] Batch [900/998] Loss: 0.086666
+  Epoch [12/50] Batch [950/998] Loss: 0.004921
+Epoch [12/50] Train Loss: 0.016527 | Test Loss: 0.016983
+  No improvement (9/10)
+  Epoch [13/50] Batch [0/998] Loss: 0.014766
+  Epoch [13/50] Batch [50/998] Loss: 0.037304
+  Epoch [13/50] Batch [100/998] Loss: 0.034398
+  Epoch [13/50] Batch [150/998] Loss: 0.006075
+  Epoch [13/50] Batch [200/998] Loss: 0.052458
+  Epoch [13/50] Batch [250/998] Loss: 0.034710
+  Epoch [13/50] Batch [300/998] Loss: 0.035229
+  Epoch [13/50] Batch [350/998] Loss: 0.016076
+  Epoch [13/50] Batch [400/998] Loss: 0.008137
+  Epoch [13/50] Batch [450/998] Loss: 0.039904
+  Epoch [13/50] Batch [500/998] Loss: 0.009144
+  Epoch [13/50] Batch [550/998] Loss: 0.056107
+  Epoch [13/50] Batch [600/998] Loss: 0.003837
+  Epoch [13/50] Batch [650/998] Loss: 0.055201
+  Epoch [13/50] Batch [700/998] Loss: 0.006155
+  Epoch [13/50] Batch [750/998] Loss: 0.050376
+  Epoch [13/50] Batch [800/998] Loss: 0.008490
+  Epoch [13/50] Batch [850/998] Loss: 0.002475
+  Epoch [13/50] Batch [900/998] Loss: 0.045033
+  Epoch [13/50] Batch [950/998] Loss: 0.018477
+Epoch [13/50] Train Loss: 0.016781 | Test Loss: 0.017228
+  No improvement (10/10)
+
+Early stopping triggered after 13 epochs
+
+================================================================================
+TRAINING COMPLETED
+================================================================================
+Best test loss: 0.014275
+Total epochs: 13
+
+================================================================================
+SAVING TRAINING RESULTS
+================================================================================
+Losses saved to: results/galaxy_losses_20260522_160333.pkl
+wandb: WARNING Symlinked 1 file into the W&B run directory; call wandb.save again to sync new files.
+
+================================================================================
+PLOTTING LOSS CURVES
+================================================================================
+Loss curve saved to: results/loss_curve_galaxy.png
+
+================================================================================
+GENERATING FINAL SAMPLE IMAGES
+================================================================================
+/gpfs/home6/scur0071/Project/diffusion-models-project/train_galaxy_no_time.py:476: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+Traceback (most recent call last):
+  File "/gpfs/home6/scur0071/Project/diffusion-models-project/train_galaxy_no_time.py", line 476, in <module>
+    unet.load_state_dict(torch.load(SAVE_PATH))
+  File "/home/scur0071/mlpa_env/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 2584, in load_state_dict
+    raise RuntimeError(
+RuntimeError: Error(s) in loading state_dict for UNet:
+	Missing key(s) in state_dict: "attention.attn_norm.weight", "attention.attn_norm.bias", "attention.attn.in_proj_weight", "attention.attn.in_proj_bias", "attention.attn.out_proj.weight", "attention.attn.out_proj.bias", "attention.ff_norm.weight", "attention.ff_norm.bias", "attention.ff.0.weight", "attention.ff.0.bias", "attention.ff.2.weight", "attention.ff.2.bias".
+	size mismatch for encoder_convs.0.0.time_mlp.1.weight: copying a param with shape torch.Size([128, 256]) from checkpoint, the shape in current model is torch.Size([128, 0]).
+	size mismatch for encoder_convs.0.1.time_mlp.1.weight: copying a param with shape torch.Size([128, 256]) from checkpoint, the shape in current model is torch.Size([128, 0]).
+	size mismatch for encoder_convs.1.0.time_mlp.1.weight: copying a param with shape torch.Size([256, 256]) from checkpoint, the shape in current model is torch.Size([256, 0]).
+	size mismatch for encoder_convs.1.1.time_mlp.1.weight: copying a param with shape torch.Size([256, 256]) from checkpoint, the shape in current model is torch.Size([256, 0]).
+	size mismatch for encoder_convs.2.0.time_mlp.1.weight: copying a param with shape torch.Size([512, 256]) from checkpoint, the shape in current model is torch.Size([512, 0]).
+	size mismatch for encoder_convs.2.1.time_mlp.1.weight: copying a param with shape torch.Size([512, 256]) from checkpoint, the shape in current model is torch.Size([512, 0]).
+	size mismatch for decoder_convs.0.0.time_mlp.1.weight: copying a param with shape torch.Size([256, 256]) from checkpoint, the shape in current model is torch.Size([256, 0]).
+	size mismatch for decoder_convs.0.1.time_mlp.1.weight: copying a param with shape torch.Size([256, 256]) from checkpoint, the shape in current model is torch.Size([256, 0]).
+	size mismatch for decoder_convs.1.0.time_mlp.1.weight: copying a param with shape torch.Size([128, 256]) from checkpoint, the shape in current model is torch.Size([128, 0]).
+	size mismatch for decoder_convs.1.1.time_mlp.1.weight: copying a param with shape torch.Size([128, 256]) from checkpoint, the shape in current model is torch.Size([128, 0]).
+	size mismatch for time_embedding.proj.0.weight: copying a param with shape torch.Size([256, 64]) from checkpoint, the shape in current model is torch.Size([0, 64]).
+	size mismatch for time_embedding.proj.0.bias: copying a param with shape torch.Size([256]) from checkpoint, the shape in current model is torch.Size([0]).
+Traceback (most recent call last):
+  File "/gpfs/home6/scur0071/Project/diffusion-models-project/train_galaxy_no_time.py", line 476, in <module>
+    unet.load_state_dict(torch.load(SAVE_PATH))
+  File "/home/scur0071/mlpa_env/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 2584, in load_state_dict
+    raise RuntimeError(
+RuntimeError: Error(s) in loading state_dict for UNet:
+	Missing key(s) in state_dict: "attention.attn_norm.weight", "attention.attn_norm.bias", "attention.attn.in_proj_weight", "attention.attn.in_proj_bias", "attention.attn.out_proj.weight", "attention.attn.out_proj.bias", "attention.ff_norm.weight", "attention.ff_norm.bias", "attention.ff.0.weight", "attention.ff.0.bias", "attention.ff.2.weight", "attention.ff.2.bias".
+	size mismatch for encoder_convs.0.0.time_mlp.1.weight: copying a param with shape torch.Size([128, 256]) from checkpoint, the shape in current model is torch.Size([128, 0]).
+	size mismatch for encoder_convs.0.1.time_mlp.1.weight: copying a param with shape torch.Size([128, 256]) from checkpoint, the shape in current model is torch.Size([128, 0]).
+	size mismatch for encoder_convs.1.0.time_mlp.1.weight: copying a param with shape torch.Size([256, 256]) from checkpoint, the shape in current model is torch.Size([256, 0]).
+	size mismatch for encoder_convs.1.1.time_mlp.1.weight: copying a param with shape torch.Size([256, 256]) from checkpoint, the shape in current model is torch.Size([256, 0]).
+	size mismatch for encoder_convs.2.0.time_mlp.1.weight: copying a param with shape torch.Size([512, 256]) from checkpoint, the shape in current model is torch.Size([512, 0]).
+	size mismatch for encoder_convs.2.1.time_mlp.1.weight: copying a param with shape torch.Size([512, 256]) from checkpoint, the shape in current model is torch.Size([512, 0]).
+	size mismatch for decoder_convs.0.0.time_mlp.1.weight: copying a param with shape torch.Size([256, 256]) from checkpoint, the shape in current model is torch.Size([256, 0]).
+	size mismatch for decoder_convs.0.1.time_mlp.1.weight: copying a param with shape torch.Size([256, 256]) from checkpoint, the shape in current model is torch.Size([256, 0]).
+	size mismatch for decoder_convs.1.0.time_mlp.1.weight: copying a param with shape torch.Size([128, 256]) from checkpoint, the shape in current model is torch.Size([128, 0]).
+	size mismatch for decoder_convs.1.1.time_mlp.1.weight: copying a param with shape torch.Size([128, 256]) from checkpoint, the shape in current model is torch.Size([128, 0]).
+	size mismatch for time_embedding.proj.0.weight: copying a param with shape torch.Size([256, 64]) from checkpoint, the shape in current model is torch.Size([0, 64]).
+	size mismatch for time_embedding.proj.0.bias: copying a param with shape torch.Size([256]) from checkpoint, the shape in current model is torch.Size([0]).

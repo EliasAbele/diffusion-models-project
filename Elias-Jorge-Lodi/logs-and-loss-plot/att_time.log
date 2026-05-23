@@ -1,0 +1,453 @@
+wandb run: galaxy_UNet_attention_8_timeemb_256_epochs_50
+wandb url: https://wandb.ai/jorgegolj0416-vrije-universiteit-amsterdam/galaxy-ddpm/runs/7jyuj4xk
+
+================================================================================
+LOADING GALAXY10 DATASET
+================================================================================
+/home/scur0071/.astroNN/datasets/Galaxy10_DECals.h5 was found!
+Dataset loaded successfully
+  Total samples: 17736
+  Image shape: (256, 256, 3)
+  Value range: [0.00, 255.00]
+  Saved samples to: results/sample_galaxies.png
+
+================================================================================
+CREATING TRAIN/TEST SPLIT
+================================================================================
+Train set: 15962 samples
+Test set:  1774 samples
+
+================================================================================
+CREATING NOISY DATASETS
+================================================================================
+Noise scheduler configured:
+  T: 1000
+  Beta start: 0.0001
+  Beta end: 0.02
+
+================================================================================
+BUILDING UNET MODEL
+================================================================================
+📦 UNet class: UNet
+📁 Loaded from module: ddpm.model
+Model: C0_128_convs_2
+  Total parameters: 19,445,897
+  Input channels: 3
+  Base channels: 128
+  Attention heads: 8
+  Time embedding dimension: 256
+  Convolutions per level: 2
+
+================================================================================
+CREATING DATA LOADERS
+================================================================================
+Batch size: 16
+Train batches: 998
+Test batches: 111
+
+================================================================================
+SETTING UP TRAINING
+================================================================================
+Training configuration:
+  Epochs: 50
+  Learning rate: 0.0001
+  Weight decay: 1e-06
+  Early stopping patience: 10
+  Save path: models/galaxy_20260522_140842.pkl
+
+================================================================================
+STARTING TRAINING
+================================================================================
+/gpfs/home6/scur0071/Project/diffusion-models-project/train_galaxy_full.py:297: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+/gpfs/home6/scur0071/Project/diffusion-models-project/train_galaxy_full.py:310: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  Epoch [1/50] Batch [0/998] Loss: 1.142378
+  Epoch [1/50] Batch [50/998] Loss: 0.106256
+  Epoch [1/50] Batch [100/998] Loss: 0.092101
+  Epoch [1/50] Batch [150/998] Loss: 0.075614
+  Epoch [1/50] Batch [200/998] Loss: 0.007039
+  Epoch [1/50] Batch [250/998] Loss: 0.003979
+  Epoch [1/50] Batch [300/998] Loss: 0.022599
+  Epoch [1/50] Batch [350/998] Loss: 0.029399
+  Epoch [1/50] Batch [400/998] Loss: 0.013234
+  Epoch [1/50] Batch [450/998] Loss: 0.013406
+  Epoch [1/50] Batch [500/998] Loss: 0.014401
+  Epoch [1/50] Batch [550/998] Loss: 0.056804
+  Epoch [1/50] Batch [600/998] Loss: 0.009563
+  Epoch [1/50] Batch [650/998] Loss: 0.006592
+  Epoch [1/50] Batch [700/998] Loss: 0.004848
+  Epoch [1/50] Batch [750/998] Loss: 0.017026
+  Epoch [1/50] Batch [800/998] Loss: 0.015310
+  Epoch [1/50] Batch [850/998] Loss: 0.047150
+  Epoch [1/50] Batch [900/998] Loss: 0.010027
+  Epoch [1/50] Batch [950/998] Loss: 0.007451
+Epoch [1/50] Train Loss: 0.047433 | Test Loss: 0.019605
+  ✓ New best model saved (test loss: 0.019605)
+wandb: WARNING Symlinked 1 file into the W&B run directory; call wandb.save again to sync new files.
+  Epoch [2/50] Batch [0/998] Loss: 0.044436
+  Epoch [2/50] Batch [50/998] Loss: 0.024937
+  Epoch [2/50] Batch [100/998] Loss: 0.013513
+  Epoch [2/50] Batch [150/998] Loss: 0.005656
+  Epoch [2/50] Batch [200/998] Loss: 0.006998
+  Epoch [2/50] Batch [250/998] Loss: 0.002208
+  Epoch [2/50] Batch [300/998] Loss: 0.024405
+  Epoch [2/50] Batch [350/998] Loss: 0.004782
+  Epoch [2/50] Batch [400/998] Loss: 0.003568
+  Epoch [2/50] Batch [450/998] Loss: 0.012850
+  Epoch [2/50] Batch [500/998] Loss: 0.028264
+  Epoch [2/50] Batch [550/998] Loss: 0.007742
+  Epoch [2/50] Batch [600/998] Loss: 0.013435
+  Epoch [2/50] Batch [650/998] Loss: 0.007268
+  Epoch [2/50] Batch [700/998] Loss: 0.009774
+  Epoch [2/50] Batch [750/998] Loss: 0.028737
+  Epoch [2/50] Batch [800/998] Loss: 0.033760
+  Epoch [2/50] Batch [850/998] Loss: 0.009714
+  Epoch [2/50] Batch [900/998] Loss: 0.024070
+  Epoch [2/50] Batch [950/998] Loss: 0.007048
+Epoch [2/50] Train Loss: 0.018240 | Test Loss: 0.016203
+  ✓ New best model saved (test loss: 0.016203)
+  Epoch [3/50] Batch [0/998] Loss: 0.003511
+  Epoch [3/50] Batch [50/998] Loss: 0.016867
+  Epoch [3/50] Batch [100/998] Loss: 0.031085
+  Epoch [3/50] Batch [150/998] Loss: 0.003217
+  Epoch [3/50] Batch [200/998] Loss: 0.007602
+  Epoch [3/50] Batch [250/998] Loss: 0.002930
+  Epoch [3/50] Batch [300/998] Loss: 0.019641
+  Epoch [3/50] Batch [350/998] Loss: 0.013330
+  Epoch [3/50] Batch [400/998] Loss: 0.004729
+  Epoch [3/50] Batch [450/998] Loss: 0.013622
+  Epoch [3/50] Batch [500/998] Loss: 0.086671
+  Epoch [3/50] Batch [550/998] Loss: 0.006304
+  Epoch [3/50] Batch [600/998] Loss: 0.002823
+  Epoch [3/50] Batch [650/998] Loss: 0.018505
+  Epoch [3/50] Batch [700/998] Loss: 0.001537
+  Epoch [3/50] Batch [750/998] Loss: 0.003334
+  Epoch [3/50] Batch [800/998] Loss: 0.002176
+  Epoch [3/50] Batch [850/998] Loss: 0.004971
+  Epoch [3/50] Batch [900/998] Loss: 0.003794
+  Epoch [3/50] Batch [950/998] Loss: 0.003675
+Epoch [3/50] Train Loss: 0.016865 | Test Loss: 0.018885
+  No improvement (1/10)
+  Epoch [4/50] Batch [0/998] Loss: 0.021613
+  Epoch [4/50] Batch [50/998] Loss: 0.038336
+  Epoch [4/50] Batch [100/998] Loss: 0.015267
+  Epoch [4/50] Batch [150/998] Loss: 0.003596
+  Epoch [4/50] Batch [200/998] Loss: 0.056145
+  Epoch [4/50] Batch [250/998] Loss: 0.007706
+  Epoch [4/50] Batch [300/998] Loss: 0.005169
+  Epoch [4/50] Batch [350/998] Loss: 0.003055
+  Epoch [4/50] Batch [400/998] Loss: 0.020507
+  Epoch [4/50] Batch [450/998] Loss: 0.002207
+  Epoch [4/50] Batch [500/998] Loss: 0.047530
+  Epoch [4/50] Batch [550/998] Loss: 0.008238
+  Epoch [4/50] Batch [600/998] Loss: 0.005858
+  Epoch [4/50] Batch [650/998] Loss: 0.003435
+  Epoch [4/50] Batch [700/998] Loss: 0.000936
+  Epoch [4/50] Batch [750/998] Loss: 0.002780
+  Epoch [4/50] Batch [800/998] Loss: 0.003075
+  Epoch [4/50] Batch [850/998] Loss: 0.063730
+  Epoch [4/50] Batch [900/998] Loss: 0.003363
+  Epoch [4/50] Batch [950/998] Loss: 0.006572
+Epoch [4/50] Train Loss: 0.016269 | Test Loss: 0.016151
+  ✓ New best model saved (test loss: 0.016151)
+  Epoch [5/50] Batch [0/998] Loss: 0.032580
+  Epoch [5/50] Batch [50/998] Loss: 0.004860
+  Epoch [5/50] Batch [100/998] Loss: 0.016713
+  Epoch [5/50] Batch [150/998] Loss: 0.011206
+  Epoch [5/50] Batch [200/998] Loss: 0.026242
+  Epoch [5/50] Batch [250/998] Loss: 0.001744
+  Epoch [5/50] Batch [300/998] Loss: 0.022842
+  Epoch [5/50] Batch [350/998] Loss: 0.005008
+  Epoch [5/50] Batch [400/998] Loss: 0.008224
+  Epoch [5/50] Batch [450/998] Loss: 0.003908
+  Epoch [5/50] Batch [500/998] Loss: 0.005139
+  Epoch [5/50] Batch [550/998] Loss: 0.012426
+  Epoch [5/50] Batch [600/998] Loss: 0.055975
+  Epoch [5/50] Batch [650/998] Loss: 0.002848
+  Epoch [5/50] Batch [700/998] Loss: 0.025157
+  Epoch [5/50] Batch [750/998] Loss: 0.022995
+  Epoch [5/50] Batch [800/998] Loss: 0.006594
+  Epoch [5/50] Batch [850/998] Loss: 0.003123
+  Epoch [5/50] Batch [900/998] Loss: 0.015818
+  Epoch [5/50] Batch [950/998] Loss: 0.005637
+Epoch [5/50] Train Loss: 0.016844 | Test Loss: 0.018409
+  Generating sample images...
+  Saved generated images to: results/generated_epoch_5.png
+  No improvement (1/10)
+  Epoch [6/50] Batch [0/998] Loss: 0.030032
+  Epoch [6/50] Batch [50/998] Loss: 0.006895
+  Epoch [6/50] Batch [100/998] Loss: 0.012672
+  Epoch [6/50] Batch [150/998] Loss: 0.009481
+  Epoch [6/50] Batch [200/998] Loss: 0.051296
+  Epoch [6/50] Batch [250/998] Loss: 0.002505
+  Epoch [6/50] Batch [300/998] Loss: 0.028669
+  Epoch [6/50] Batch [350/998] Loss: 0.013637
+  Epoch [6/50] Batch [400/998] Loss: 0.005983
+  Epoch [6/50] Batch [450/998] Loss: 0.004432
+  Epoch [6/50] Batch [500/998] Loss: 0.013352
+  Epoch [6/50] Batch [550/998] Loss: 0.006084
+  Epoch [6/50] Batch [600/998] Loss: 0.007313
+  Epoch [6/50] Batch [650/998] Loss: 0.017375
+  Epoch [6/50] Batch [700/998] Loss: 0.007113
+  Epoch [6/50] Batch [750/998] Loss: 0.050368
+  Epoch [6/50] Batch [800/998] Loss: 0.032210
+  Epoch [6/50] Batch [850/998] Loss: 0.050439
+  Epoch [6/50] Batch [900/998] Loss: 0.002643
+  Epoch [6/50] Batch [950/998] Loss: 0.014066
+Epoch [6/50] Train Loss: 0.016441 | Test Loss: 0.013150
+  ✓ New best model saved (test loss: 0.013150)
+  Epoch [7/50] Batch [0/998] Loss: 0.005492
+  Epoch [7/50] Batch [50/998] Loss: 0.027755
+  Epoch [7/50] Batch [100/998] Loss: 0.006362
+  Epoch [7/50] Batch [150/998] Loss: 0.051016
+  Epoch [7/50] Batch [200/998] Loss: 0.009160
+  Epoch [7/50] Batch [250/998] Loss: 0.015111
+  Epoch [7/50] Batch [300/998] Loss: 0.003880
+  Epoch [7/50] Batch [350/998] Loss: 0.013787
+  Epoch [7/50] Batch [400/998] Loss: 0.001762
+  Epoch [7/50] Batch [450/998] Loss: 0.021436
+  Epoch [7/50] Batch [500/998] Loss: 0.020101
+  Epoch [7/50] Batch [550/998] Loss: 0.005844
+  Epoch [7/50] Batch [600/998] Loss: 0.015878
+  Epoch [7/50] Batch [650/998] Loss: 0.005904
+  Epoch [7/50] Batch [700/998] Loss: 0.006535
+  Epoch [7/50] Batch [750/998] Loss: 0.011241
+  Epoch [7/50] Batch [800/998] Loss: 0.007036
+  Epoch [7/50] Batch [850/998] Loss: 0.040885
+  Epoch [7/50] Batch [900/998] Loss: 0.019248
+  Epoch [7/50] Batch [950/998] Loss: 0.023816
+Epoch [7/50] Train Loss: 0.016055 | Test Loss: 0.015386
+  No improvement (1/10)
+  Epoch [8/50] Batch [0/998] Loss: 0.012322
+  Epoch [8/50] Batch [50/998] Loss: 0.005438
+  Epoch [8/50] Batch [100/998] Loss: 0.027989
+  Epoch [8/50] Batch [150/998] Loss: 0.016551
+  Epoch [8/50] Batch [200/998] Loss: 0.060709
+  Epoch [8/50] Batch [250/998] Loss: 0.050717
+  Epoch [8/50] Batch [300/998] Loss: 0.008797
+  Epoch [8/50] Batch [350/998] Loss: 0.002390
+  Epoch [8/50] Batch [400/998] Loss: 0.034966
+  Epoch [8/50] Batch [450/998] Loss: 0.014396
+  Epoch [8/50] Batch [500/998] Loss: 0.015539
+  Epoch [8/50] Batch [550/998] Loss: 0.016519
+  Epoch [8/50] Batch [600/998] Loss: 0.064409
+  Epoch [8/50] Batch [650/998] Loss: 0.005792
+  Epoch [8/50] Batch [700/998] Loss: 0.006901
+  Epoch [8/50] Batch [750/998] Loss: 0.002510
+  Epoch [8/50] Batch [800/998] Loss: 0.018656
+  Epoch [8/50] Batch [850/998] Loss: 0.028150
+  Epoch [8/50] Batch [900/998] Loss: 0.035109
+  Epoch [8/50] Batch [950/998] Loss: 0.014259
+Epoch [8/50] Train Loss: 0.017021 | Test Loss: 0.016268
+  No improvement (2/10)
+  Epoch [9/50] Batch [0/998] Loss: 0.012242
+  Epoch [9/50] Batch [50/998] Loss: 0.014385
+  Epoch [9/50] Batch [100/998] Loss: 0.013850
+  Epoch [9/50] Batch [150/998] Loss: 0.025893
+  Epoch [9/50] Batch [200/998] Loss: 0.009021
+  Epoch [9/50] Batch [250/998] Loss: 0.026340
+  Epoch [9/50] Batch [300/998] Loss: 0.002970
+  Epoch [9/50] Batch [350/998] Loss: 0.036049
+  Epoch [9/50] Batch [400/998] Loss: 0.008152
+  Epoch [9/50] Batch [450/998] Loss: 0.015934
+  Epoch [9/50] Batch [500/998] Loss: 0.050511
+  Epoch [9/50] Batch [550/998] Loss: 0.009616
+  Epoch [9/50] Batch [600/998] Loss: 0.022358
+  Epoch [9/50] Batch [650/998] Loss: 0.023601
+  Epoch [9/50] Batch [700/998] Loss: 0.024923
+  Epoch [9/50] Batch [750/998] Loss: 0.003228
+  Epoch [9/50] Batch [800/998] Loss: 0.002334
+  Epoch [9/50] Batch [850/998] Loss: 0.010050
+  Epoch [9/50] Batch [900/998] Loss: 0.020497
+  Epoch [9/50] Batch [950/998] Loss: 0.001483
+Epoch [9/50] Train Loss: 0.017100 | Test Loss: 0.014707
+  No improvement (3/10)
+  Epoch [10/50] Batch [0/998] Loss: 0.004576
+  Epoch [10/50] Batch [50/998] Loss: 0.031849
+  Epoch [10/50] Batch [100/998] Loss: 0.011630
+  Epoch [10/50] Batch [150/998] Loss: 0.015163
+  Epoch [10/50] Batch [200/998] Loss: 0.003644
+  Epoch [10/50] Batch [250/998] Loss: 0.005100
+  Epoch [10/50] Batch [300/998] Loss: 0.058456
+  Epoch [10/50] Batch [350/998] Loss: 0.016018
+  Epoch [10/50] Batch [400/998] Loss: 0.008952
+  Epoch [10/50] Batch [450/998] Loss: 0.013198
+  Epoch [10/50] Batch [500/998] Loss: 0.046921
+  Epoch [10/50] Batch [550/998] Loss: 0.006506
+  Epoch [10/50] Batch [600/998] Loss: 0.010556
+  Epoch [10/50] Batch [650/998] Loss: 0.013679
+  Epoch [10/50] Batch [700/998] Loss: 0.008652
+  Epoch [10/50] Batch [750/998] Loss: 0.002501
+  Epoch [10/50] Batch [800/998] Loss: 0.006783
+  Epoch [10/50] Batch [850/998] Loss: 0.007941
+  Epoch [10/50] Batch [900/998] Loss: 0.006013
+  Epoch [10/50] Batch [950/998] Loss: 0.005584
+Epoch [10/50] Train Loss: 0.015391 | Test Loss: 0.017366
+  Generating sample images...
+  Saved generated images to: results/generated_epoch_10.png
+  No improvement (4/10)
+  Epoch [11/50] Batch [0/998] Loss: 0.006111
+  Epoch [11/50] Batch [50/998] Loss: 0.002824
+  Epoch [11/50] Batch [100/998] Loss: 0.010386
+  Epoch [11/50] Batch [150/998] Loss: 0.016168
+  Epoch [11/50] Batch [200/998] Loss: 0.004555
+  Epoch [11/50] Batch [250/998] Loss: 0.004509
+  Epoch [11/50] Batch [300/998] Loss: 0.006398
+  Epoch [11/50] Batch [350/998] Loss: 0.004300
+  Epoch [11/50] Batch [400/998] Loss: 0.044489
+  Epoch [11/50] Batch [450/998] Loss: 0.009452
+  Epoch [11/50] Batch [500/998] Loss: 0.009465
+  Epoch [11/50] Batch [550/998] Loss: 0.055167
+  Epoch [11/50] Batch [600/998] Loss: 0.003457
+  Epoch [11/50] Batch [650/998] Loss: 0.004379
+  Epoch [11/50] Batch [700/998] Loss: 0.006545
+  Epoch [11/50] Batch [750/998] Loss: 0.007237
+  Epoch [11/50] Batch [800/998] Loss: 0.002496
+  Epoch [11/50] Batch [850/998] Loss: 0.004352
+  Epoch [11/50] Batch [900/998] Loss: 0.006007
+  Epoch [11/50] Batch [950/998] Loss: 0.047124
+Epoch [11/50] Train Loss: 0.016197 | Test Loss: 0.017712
+  No improvement (5/10)
+  Epoch [12/50] Batch [0/998] Loss: 0.011312
+  Epoch [12/50] Batch [50/998] Loss: 0.022268
+  Epoch [12/50] Batch [100/998] Loss: 0.002930
+  Epoch [12/50] Batch [150/998] Loss: 0.001674
+  Epoch [12/50] Batch [200/998] Loss: 0.009901
+  Epoch [12/50] Batch [250/998] Loss: 0.001934
+  Epoch [12/50] Batch [300/998] Loss: 0.006892
+  Epoch [12/50] Batch [350/998] Loss: 0.047171
+  Epoch [12/50] Batch [400/998] Loss: 0.007775
+  Epoch [12/50] Batch [450/998] Loss: 0.002733
+  Epoch [12/50] Batch [500/998] Loss: 0.022074
+  Epoch [12/50] Batch [550/998] Loss: 0.057071
+  Epoch [12/50] Batch [600/998] Loss: 0.003981
+  Epoch [12/50] Batch [650/998] Loss: 0.015411
+  Epoch [12/50] Batch [700/998] Loss: 0.056438
+  Epoch [12/50] Batch [750/998] Loss: 0.043134
+  Epoch [12/50] Batch [800/998] Loss: 0.056110
+  Epoch [12/50] Batch [850/998] Loss: 0.001221
+  Epoch [12/50] Batch [900/998] Loss: 0.002448
+  Epoch [12/50] Batch [950/998] Loss: 0.050352
+Epoch [12/50] Train Loss: 0.015685 | Test Loss: 0.015069
+  No improvement (6/10)
+  Epoch [13/50] Batch [0/998] Loss: 0.002522
+  Epoch [13/50] Batch [50/998] Loss: 0.006269
+  Epoch [13/50] Batch [100/998] Loss: 0.002560
+  Epoch [13/50] Batch [150/998] Loss: 0.012003
+  Epoch [13/50] Batch [200/998] Loss: 0.024921
+  Epoch [13/50] Batch [250/998] Loss: 0.041430
+  Epoch [13/50] Batch [300/998] Loss: 0.004432
+  Epoch [13/50] Batch [350/998] Loss: 0.003047
+  Epoch [13/50] Batch [400/998] Loss: 0.045887
+  Epoch [13/50] Batch [450/998] Loss: 0.001433
+  Epoch [13/50] Batch [500/998] Loss: 0.002163
+  Epoch [13/50] Batch [550/998] Loss: 0.003790
+  Epoch [13/50] Batch [600/998] Loss: 0.021000
+  Epoch [13/50] Batch [650/998] Loss: 0.079502
+  Epoch [13/50] Batch [700/998] Loss: 0.004739
+  Epoch [13/50] Batch [750/998] Loss: 0.016908
+  Epoch [13/50] Batch [800/998] Loss: 0.078701
+  Epoch [13/50] Batch [850/998] Loss: 0.060906
+  Epoch [13/50] Batch [900/998] Loss: 0.003042
+  Epoch [13/50] Batch [950/998] Loss: 0.026166
+Epoch [13/50] Train Loss: 0.016402 | Test Loss: 0.017231
+  No improvement (7/10)
+  Epoch [14/50] Batch [0/998] Loss: 0.011133
+  Epoch [14/50] Batch [50/998] Loss: 0.005769
+  Epoch [14/50] Batch [100/998] Loss: 0.003152
+  Epoch [14/50] Batch [150/998] Loss: 0.003881
+  Epoch [14/50] Batch [200/998] Loss: 0.036442
+  Epoch [14/50] Batch [250/998] Loss: 0.009750
+  Epoch [14/50] Batch [300/998] Loss: 0.022836
+  Epoch [14/50] Batch [350/998] Loss: 0.008541
+  Epoch [14/50] Batch [400/998] Loss: 0.017796
+  Epoch [14/50] Batch [450/998] Loss: 0.002594
+  Epoch [14/50] Batch [500/998] Loss: 0.004556
+  Epoch [14/50] Batch [550/998] Loss: 0.002920
+  Epoch [14/50] Batch [600/998] Loss: 0.048620
+  Epoch [14/50] Batch [650/998] Loss: 0.017303
+  Epoch [14/50] Batch [700/998] Loss: 0.087662
+  Epoch [14/50] Batch [750/998] Loss: 0.003401
+  Epoch [14/50] Batch [800/998] Loss: 0.005469
+  Epoch [14/50] Batch [850/998] Loss: 0.003547
+  Epoch [14/50] Batch [900/998] Loss: 0.015362
+  Epoch [14/50] Batch [950/998] Loss: 0.012294
+Epoch [14/50] Train Loss: 0.015607 | Test Loss: 0.015616
+  No improvement (8/10)
+  Epoch [15/50] Batch [0/998] Loss: 0.001318
+  Epoch [15/50] Batch [50/998] Loss: 0.004996
+  Epoch [15/50] Batch [100/998] Loss: 0.001108
+  Epoch [15/50] Batch [150/998] Loss: 0.003583
+  Epoch [15/50] Batch [200/998] Loss: 0.008682
+  Epoch [15/50] Batch [250/998] Loss: 0.009553
+  Epoch [15/50] Batch [300/998] Loss: 0.015830
+  Epoch [15/50] Batch [350/998] Loss: 0.007963
+  Epoch [15/50] Batch [400/998] Loss: 0.003725
+  Epoch [15/50] Batch [450/998] Loss: 0.030301
+  Epoch [15/50] Batch [500/998] Loss: 0.001156
+  Epoch [15/50] Batch [550/998] Loss: 0.005772
+  Epoch [15/50] Batch [600/998] Loss: 0.002920
+  Epoch [15/50] Batch [650/998] Loss: 0.026335
+  Epoch [15/50] Batch [700/998] Loss: 0.034139
+  Epoch [15/50] Batch [750/998] Loss: 0.006072
+  Epoch [15/50] Batch [800/998] Loss: 0.036293
+  Epoch [15/50] Batch [850/998] Loss: 0.118111
+  Epoch [15/50] Batch [900/998] Loss: 0.002298
+  Epoch [15/50] Batch [950/998] Loss: 0.006251
+Epoch [15/50] Train Loss: 0.015854 | Test Loss: 0.014253
+  Generating sample images...
+  Saved generated images to: results/generated_epoch_15.png
+  No improvement (9/10)
+  Epoch [16/50] Batch [0/998] Loss: 0.002345
+  Epoch [16/50] Batch [50/998] Loss: 0.007193
+  Epoch [16/50] Batch [100/998] Loss: 0.007159
+  Epoch [16/50] Batch [150/998] Loss: 0.035698
+  Epoch [16/50] Batch [200/998] Loss: 0.037578
+  Epoch [16/50] Batch [250/998] Loss: 0.001949
+  Epoch [16/50] Batch [300/998] Loss: 0.031420
+  Epoch [16/50] Batch [350/998] Loss: 0.015802
+  Epoch [16/50] Batch [400/998] Loss: 0.008055
+  Epoch [16/50] Batch [450/998] Loss: 0.018055
+  Epoch [16/50] Batch [500/998] Loss: 0.013895
+  Epoch [16/50] Batch [550/998] Loss: 0.055107
+  Epoch [16/50] Batch [600/998] Loss: 0.000514
+  Epoch [16/50] Batch [650/998] Loss: 0.014349
+  Epoch [16/50] Batch [700/998] Loss: 0.061209
+  Epoch [16/50] Batch [750/998] Loss: 0.010767
+  Epoch [16/50] Batch [800/998] Loss: 0.007375
+  Epoch [16/50] Batch [850/998] Loss: 0.010627
+  Epoch [16/50] Batch [900/998] Loss: 0.003374
+  Epoch [16/50] Batch [950/998] Loss: 0.019412
+Epoch [16/50] Train Loss: 0.015852 | Test Loss: 0.013200
+  No improvement (10/10)
+
+Early stopping triggered after 16 epochs
+
+================================================================================
+TRAINING COMPLETED
+================================================================================
+Best test loss: 0.013150
+Total epochs: 16
+
+================================================================================
+SAVING TRAINING RESULTS
+================================================================================
+Losses saved to: results/galaxy_losses_20260522_140842.pkl
+wandb: WARNING Symlinked 1 file into the W&B run directory; call wandb.save again to sync new files.
+
+================================================================================
+PLOTTING LOSS CURVES
+================================================================================
+Loss curve saved to: results/loss_curve_galaxy.png
+
+================================================================================
+GENERATING FINAL SAMPLE IMAGES
+================================================================================
+/gpfs/home6/scur0071/Project/diffusion-models-project/train_galaxy_full.py:477: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+Final samples saved to: results/final_generated_galaxies.png
+Generating denoising process visualization...
+Denoising process saved to: results/denoising_process_galaxy.png
+
+================================================================================
+FINALIZING WANDB
+================================================================================
+wandb run completed: https://wandb.ai/jorgegolj0416-vrije-universiteit-amsterdam/galaxy-ddpm/runs/7jyuj4xk
