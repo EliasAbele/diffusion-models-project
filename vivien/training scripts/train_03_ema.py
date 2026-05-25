@@ -37,7 +37,6 @@ np.Inf = np.inf
 
 
 # Argument parsing
-
 def parse_args():
     p = argparse.ArgumentParser(description="Train U-Net DDPM on FashionMNIST with EMA")
     p.add_argument('--epochs',             type=int,   default=200)
@@ -54,7 +53,6 @@ def parse_args():
 
 
 # EMA
-
 class EMA:
     """Maintains an exponential moving average of model parameters.
 
@@ -83,7 +81,6 @@ class EMA:
 
 
 # Diffusion process
-
 class Diffusion(nn.Module):
     def __init__(self, model, image_resolution, n_times=1000,
                  beta_minmax=[1e-4, 2e-2], device='cpu'):
@@ -151,7 +148,6 @@ class Diffusion(nn.Module):
 
 
 # Helpers
-
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
@@ -167,7 +163,6 @@ def save_sample_grid(images, path, title):
 
 
 # Main
-
 def main():
     args = parse_args()
 
@@ -250,7 +245,7 @@ def main():
     print(f"Model saved to: {args.save_dir}/trained.pt")
     print(f"EMA model saved to: {args.save_dir}/trained_ema.pt")
 
-    # Sample from the EMA model (the whole point of this ablation).
+    # Sample from the EMA model
     print("Generating samples from EMA model...")
     diffusion.model = ema.ema_model
     diffusion.model.eval()
@@ -260,7 +255,7 @@ def main():
                      os.path.join(args.save_dir, 'generated_samples_ema.png'),
                      "Generated Images (U-Net DDPM + EMA - FashionMNIST)")
 
-    # Also sample from raw weights for side-by-side comparison with train_02.
+    # Also sample from raw weights for side-by-side comparison with train_02
     print("Generating samples from raw model (for comparison)...")
     diffusion.model = model
     diffusion.model.eval()

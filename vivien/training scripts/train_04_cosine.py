@@ -35,7 +35,6 @@ np.Inf = np.inf
 
 
 # Argument parsing
-
 def parse_args():
     p = argparse.ArgumentParser(description="Train U-Net DDPM on FashionMNIST with cosine beta-schedule")
     p.add_argument('--epochs',             type=int,   default=200)
@@ -52,7 +51,6 @@ def parse_args():
 
 
 # Beta schedules
-
 def cosine_beta_schedule(n_times, s=0.008):
     # Linear schedule destroys signal too fast at 28x28; cosine keeps SNR
     # higher in mid-range t where detail is learned. Improved DDPM, eq. 17:
@@ -71,7 +69,6 @@ def linear_beta_schedule(n_times, beta_1=1e-4, beta_T=2e-2):
 
 
 # Diffusion process
-
 class Diffusion(nn.Module):
     def __init__(self, model, image_resolution, n_times=1000,
                  beta_schedule='cosine', beta_minmax=[1e-4, 2e-2],
@@ -145,7 +142,6 @@ class Diffusion(nn.Module):
 
 
 # Helpers
-
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
@@ -161,7 +157,6 @@ def save_sample_grid(images, path, title):
 
 
 # Main
-
 def main():
     args = parse_args()
 

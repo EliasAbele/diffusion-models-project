@@ -19,7 +19,6 @@ module load Miniconda3/24.7.1-0
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate diffusion
 
-# Ensure the lucidrains denoiser is available in the env (no-op if already installed)
 pip install --quiet denoising-diffusion-pytorch
 
 cd /home/scur0110/diffusion-models-project

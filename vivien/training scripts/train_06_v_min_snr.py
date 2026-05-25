@@ -61,7 +61,7 @@ from tqdm import tqdm
 
 from denoising_diffusion_pytorch import GaussianDiffusion, Unet
 
-np.Inf = np.inf  # compat shim for older numpy-using deps
+np.Inf = np.inf 
 
 
 def parse_args():
@@ -134,7 +134,7 @@ def main():
     samples_dir = os.path.join(args.save_dir, 'samples_during_training')
     os.makedirs(samples_dir, exist_ok=True)
 
-    # Pad 28 -> 32 so the U-Net depth math is clean (see header note 6).
+    # Pad 28 -> 32 so the U-Net depth math is clean
     transform = transforms.Compose([
         transforms.ToTensor(),
         transforms.Pad(2),
@@ -151,7 +151,7 @@ def main():
     )
 
     # GaussianDiffusion: ties together the U-Net + schedule + parameterization +
-    # loss weighting. Handles its own [0,1] <-> [-1,1] scaling internally.
+    # loss weighting. Handles its own [0,1] <-> [-1,1] scaling internally
     diffusion = GaussianDiffusion(
         model,
         image_size=32,
@@ -164,7 +164,6 @@ def main():
     ).to(device)
 
     ema = EMA(diffusion, decay=args.ema_decay, update_every=args.ema_update_every)
-    # EMA's deep-copied module must also live on the GPU.
     ema.ema_module.to(device)
 
     optimizer = AdamW(diffusion.parameters(), lr=args.lr)
@@ -182,7 +181,7 @@ def main():
         for x, _ in tqdm(train_loader, desc=f"Epoch {epoch + 1}/{args.epochs}"):
             x = x.to(device, non_blocking=True)
             optimizer.zero_grad()
-            # GaussianDiffusion.forward returns the (already-weighted) scalar loss.
+            # GaussianDiffusion.forward returns the (already-weighted) scalar loss
             loss = diffusion(x)
             loss.backward()
             optimizer.step()
@@ -195,7 +194,7 @@ def main():
         train_losses.append(avg)
         print(f"\tEpoch {epoch + 1}: loss={avg:.6f}")
 
-        # Mid-training sample grids from the EMA model.
+        # Mid-training sample grids from the EMA model
         if (epoch + 1) % args.sample_every == 0 or epoch == 0:
             ema.ema_module.eval()
             with torch.no_grad():
@@ -219,7 +218,7 @@ def main():
     torch.save(ema.ema_module.state_dict(),    os.path.join(args.save_dir, 'trained_ema.pt'))
     torch.save({'train': train_losses},        os.path.join(args.save_dir, 'losses.pt'))
 
-    # Final grids: EMA and raw, side-by-side for sanity.
+    # Final grids: EMA and raw, side-by-side for sanity check. The EMA samples should be better, but the raw ones should still be class-identifiable and not pure noise.
     print("Generating final samples...")
     ema.ema_module.eval()
     diffusion.eval()

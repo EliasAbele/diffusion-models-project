@@ -34,7 +34,6 @@ np.Inf = np.inf
 
 
 # Argument parsing
-
 def parse_args():
     p = argparse.ArgumentParser(description="Train U-Net DDPM on FashionMNIST with lr=1e-4")
     p.add_argument('--epochs',             type=int,   default=200)
@@ -52,7 +51,6 @@ def parse_args():
 
 
 # Diffusion process
-
 class Diffusion(nn.Module):
     def __init__(self, model, image_resolution, n_times=1000,
                  beta_minmax=[1e-4, 2e-2], device='cpu'):
@@ -120,7 +118,6 @@ class Diffusion(nn.Module):
 
 
 # Helpers
-
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
@@ -136,7 +133,6 @@ def save_sample_grid(images, path, title):
 
 
 # Main
-
 def main():
     args = parse_args()
 
